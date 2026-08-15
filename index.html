@@ -6,17 +6,18 @@
   <title>Gen Z Genre Roulette</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Space+Grotesk:wght@600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #09090c;
-      --card-bg: rgba(22, 22, 30, 0.9);
-      --border: rgba(255, 255, 255, 0.1);
-      --neon: #00ff88;
-      --accent: #00f0ff;
-      --pink: #ff007f;
-      --text: #f3f4f6;
-      --muted: #9ca3af;
+      --bg: #050508;
+      --card-bg: rgba(14, 15, 23, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --neon-green: #00ff88;
+      --neon-cyan: #00f0ff;
+      --neon-pink: #ff007f;
+      --neon-purple: #a855f7;
+      --text: #f9fafb;
+      --text-muted: #94a3b8;
     }
 
     * {
@@ -36,59 +37,63 @@
       flex-direction: column;
       justify-content: space-between;
       overflow: hidden;
+      position: relative;
     }
 
-    /* Ambient Header Glow */
-    .glow {
+    /* Ambient Background Neon Mesh */
+    .mesh-glow {
       position: absolute;
-      top: -40px;
+      top: -30px;
       left: 50%;
       transform: translateX(-50%);
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.25) 0%, transparent 70%);
-      filter: blur(50px);
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.2) 0%, rgba(255, 0, 127, 0.08) 50%, transparent 70%);
+      filter: blur(60px);
       z-index: 0;
       pointer-events: none;
       transition: background 0.4s ease;
     }
 
-    /* Top Information Area */
+    /* Top Section */
     .top-section {
       position: relative;
       z-index: 2;
-      padding: 14px 18px 0;
+      padding: 16px 18px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .badge {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: var(--neon);
-      background: rgba(0, 255, 136, 0.1);
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      padding: 3px 10px;
+      color: var(--neon-green);
+      background: rgba(0, 255, 136, 0.08);
+      border: 1px solid rgba(0, 255, 136, 0.35);
+      padding: 4px 14px;
       border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
     }
 
     .info-card {
       width: 100%;
       max-width: 420px;
       background: var(--card-bg);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(16px);
-      border-radius: 18px;
-      padding: 16px;
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 22px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-      transition: transform 0.25s ease;
+      gap: 10px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
     }
 
     .info-card.bump {
@@ -105,50 +110,53 @@
       font-size: 10px;
       font-weight: 800;
       text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(0, 240, 255, 0.12);
-      border: 1px solid var(--accent);
-      padding: 2px 8px;
-      border-radius: 10px;
+      letter-spacing: 0.5px;
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--neon-cyan);
+      padding: 3px 10px;
+      border-radius: 8px;
     }
 
     .vibe-text {
       font-size: 11px;
-      color: var(--muted);
+      color: var(--text-muted);
       font-weight: 600;
+      letter-spacing: 0.2px;
     }
 
     .genre-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 800;
       color: #ffffff;
       line-height: 1.1;
+      letter-spacing: -0.5px;
     }
 
     .genre-description {
-      font-size: 12.5px;
-      line-height: 1.4;
+      font-size: 13px;
+      line-height: 1.45;
       color: #cbd5e1;
-      min-height: 36px;
+      min-height: 38px;
     }
 
     .artist-row {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      padding: 6px 10px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 8px 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 11.5px;
+      gap: 8px;
+      font-size: 12px;
     }
 
     .artist-label {
       font-weight: 800;
-      color: var(--pink);
+      color: var(--neon-pink);
       text-transform: uppercase;
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.5px;
     }
 
@@ -174,25 +182,24 @@
 
     .marker {
       position: absolute;
-      top: 6px;
+      top: 2px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-top: 22px solid var(--neon);
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 24px solid var(--neon-green);
       z-index: 10;
-      filter: drop-shadow(0 2px 8px rgba(0, 255, 136, 0.9));
+      filter: drop-shadow(0 0 10px rgba(0, 255, 136, 1));
     }
 
     .canvas-container {
       position: absolute;
-      top: 18px;
-      width: 440px;
-      height: 440px;
+      top: 16px;
+      width: 450px;
+      height: 450px;
       border-radius: 50%;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 255, 136, 0.2);
     }
 
     canvas {
@@ -202,16 +209,17 @@
       border-radius: 50%;
     }
 
+    /* Center Spin Hub */
     .spin-center-btn {
       position: absolute;
-      top: calc(18px + 220px);
+      top: calc(16px + 225px);
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 90px;
-      height: 90px;
+      width: 92px;
+      height: 92px;
       border-radius: 50%;
-      background: radial-gradient(circle, #252535 0%, #101017 100%);
-      border: 3px solid var(--neon);
+      background: radial-gradient(circle, #1a1c29 0%, #090a10 100%);
+      border: 2px solid var(--neon-green);
       color: #fff;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 800;
@@ -221,48 +229,49 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.2);
       z-index: 9;
-      transition: transform 0.15s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     .spin-center-btn:active {
       transform: translate(-50%, -50%) scale(0.92);
+      box-shadow: 0 0 12px rgba(0, 255, 136, 0.8);
     }
 
     .spin-center-btn span {
       font-size: 9px;
-      color: var(--neon);
-      letter-spacing: 0.5px;
+      color: var(--neon-green);
+      letter-spacing: 1px;
     }
   </style>
 </head>
 <body>
 
-  <div class="glow" id="glow"></div>
+  <div class="mesh-glow" id="glow"></div>
 
-  <!-- Top Info -->
+  <!-- Top Info Card -->
   <div class="top-section">
-    <div class="badge">100 Gen Z Genres</div>
+    <div class="badge">Gen Z Sonic Roulette</div>
     <div class="info-card" id="infoCard">
       <div class="card-meta">
-        <span class="category-pill" id="genreCategory">Rage & Rap</span>
-        <span class="vibe-text" id="genreVibe">Moshpit • 145 BPM</span>
+        <span class="category-pill" id="genreCategory">Digital & Glitch</span>
+        <span class="vibe-text" id="genreVibe">Maximalist • High BPM</span>
       </div>
-      <h2 class="genre-name" id="genreTitle">Rage Rap</h2>
-      <p class="genre-description" id="genreDesc">Trap driven by euphoric, buzzing EDM synthesizer leads, distorted 808s, and hyper-futuristic rhythms.</p>
+      <h2 class="genre-name" id="genreTitle">Hyperpop</h2>
+      <p class="genre-description" id="genreDesc">Maximalist pop pushed into abrasive synthetic sound design, pitch-shifted vocals, and metallic bass drops.</p>
       <div class="artist-row">
-        <span class="artist-label">Artists</span>
-        <span class="artist-list" id="genreArtists">Playboi Carti, Yeat, Ken Carson</span>
+        <span class="artist-label">Key Artists</span>
+        <span class="artist-list" id="genreArtists">100 gecs, SOPHIE, Charli xcx</span>
       </div>
     </div>
   </div>
 
-  <!-- Bottom Wheel -->
+  <!-- Bottom Roulette Wheel -->
   <div class="roulette-wrapper">
     <div class="marker"></div>
     <div class="canvas-container">
-      <canvas id="wheelCanvas" width="880" height="880"></canvas>
+      <canvas id="wheelCanvas" width="900" height="900"></canvas>
     </div>
     <button class="spin-center-btn" id="spinBtn">
       SPIN
@@ -272,32 +281,26 @@
 
   <script>
     const GENRES = [
-      { name: "Rage Rap", category: "Rage & Rap", vibe: "Moshpit • 145 BPM", artists: "Playboi Carti, Yeat, Ken Carson", desc: "Trap driven by buzzing EDM synthesizer leads, distorted 808s, and futuristic rhythms." },
-      { name: "Hyperpop", category: "Digital & Glitch", vibe: "Maximalist Pop", artists: "100 gecs, SOPHIE, Charli xcx", desc: "Maximalist pop pushed into abrasive synthetic sound design and pitch-shifted vocals." },
-      { name: "Drift Phonk", category: "Phonk & Dance", vibe: "Cowbell • 160 BPM", artists: "Kordhell, DVRST, Hensonn", desc: "Memphis rap acapellas combined with aggressive cowbells and car-drift aesthetics." },
-      { name: "Bedroom Pop", category: "Indie & Alt", vibe: "Chill • Lo-Fi Tape", artists: "Clairo, Beabadoobee, Cavetown", desc: "Intimate DIY home recordings with chorus guitars, vintage keys, and delicate vocals." },
-      { name: "Brazilian Phonk", category: "Phonk & Dance", vibe: "Baile • 130 BPM", artists: "Phonkha, Slowboy, DJ FKU", desc: "Favela funk rhythms fused with distorted phonk cowbells and heavy sub bass." },
-      { name: "Digicore", category: "Digital & Glitch", vibe: "Discord-Native", artists: "Jane Remover, midwxst, quinn", desc: "Hyperpop evolution mixing autotuned singing, bitcrushed chords, and fast breaks." },
-      { name: "PluggnB", category: "Rage & Rap", vibe: "Smooth 808s", artists: "Autumn!, Summrs, Kankan", desc: "Melodic fusion of minimalist plugg beats with 2000s R&B vocal runs and bright bells." },
-      { name: "Nu-Gaze", category: "Rock & Guitar", vibe: "Fuzz Shoegaze", artists: "Wisp, Julie, Narrow Head", desc: "Gen Z revival of 90s shoegaze, featuring walls of fuzz pedals and whispery vocals." },
-      { name: "Slowed + Reverb", category: "Internet Vibe", vibe: "Liminal Headspace", artists: "TikTok & YouTube Creators", desc: "Pitched-down, space-drenched songs creating a dreamy late-night emotional vibe." },
-      { name: "Amapiano", category: "Global Club", vibe: "Log Drum Bass", artists: "Uncle Waffles, Kabza De Small", desc: "South African house hybrid of deep synths, soulful jazz chords, and wooden log drums." },
-      { name: "Breakcore", category: "Digital & Glitch", vibe: "Frenetic • 180 BPM", artists: "Sewerslvt, Vertigoaway", desc: "Manic chopped drum breaks colliding with anime soundbites and ambient pads." },
-      { name: "Corridos Tumbados", category: "Global Waves", vibe: "Brass & Trap", artists: "Peso Pluma, Natanael Cano", desc: "Traditional Mexican requinto guitars and brass horns fused with trap cadences." },
-      { name: "Krushclub", category: "Rage & Rap", vibe: "Fast Nightcore", artists: "Odetari, Lumi Athena, Asteria", desc: "Fast-paced cross between Jersey club kicks, nightcore hooks, and rage synths." },
-      { name: "Deftones-Core", category: "Rock & Guitar", vibe: "Alt-Metal Wave", artists: "Fleshwater, Loathe, Moodring", desc: "Drop-tuned heavy riffs meeting ethereal whispering vocals and 90s grunge bridges." },
-      { name: "Sad Girl Indie", category: "Indie & Alt", vibe: "Poetic & Stripped", artists: "Phoebe Bridgers, boygenius, Gracie", desc: "Confessional, poetic indie folk built around acoustic guitars and raw vocal stories." },
-      { name: "Jersey Club", category: "Phonk & Dance", vibe: "5-Beat Bounce", artists: "Bandmanrill, Lil Uzi Vert", desc: "Syncopated five-beat kick pattern accented by vocal chops and rapid bounce rhythms." },
-      { name: "Fast Techno", category: "Phonk & Dance", vibe: "155 BPM Rave", artists: "Creeds, Sara Landry, Nico Moreno", desc: "Hard techno and schranz kicks paired with energetic melodic top-lines." },
-      { name: "Modern Bossa", category: "Indie & Alt", vibe: "Jazz Bedroom Pop", artists: "Laufey", desc: "Brazilian Bossa Nova chords and vintage big-band style with modern youth lyrics." },
-      { name: "5th Gen K-Pop", category: "Global Waves", vibe: "Liquid DnB Pop", artists: "NewJeans, ILLIT", desc: "K-pop embracing early 2000s liquid drum & bass breaks and breezy vocal delivery." },
-      { name: "Dariacore", category: "Digital & Glitch", vibe: "Meme Chop Chaos", artists: "leroy / Jane Remover", desc: "High-speed Jersey breakbeats layered with rapid 2000s pop and internet meme samples." }
-    ];
-
-    const COLORS = [
-      "#00ff88", "#00f0ff", "#ff007f", "#9d4edd", 
-      "#ffea00", "#ff5400", "#70e000", "#0077b6", 
-      "#e01a4f", "#7209b7", "#38b000", "#4cc9f0"
+      { name: "Hyperpop", color: "#00f0ff", category: "Digital & Glitch", vibe: "Maximalist • High BPM", artists: "100 gecs, SOPHIE, Charli xcx", desc: "Maximalist pop pushed into abrasive synthetic sound design, pitch-shifted vocals, and metallic bass drops." },
+      { name: "Rage Rap", color: "#00ff88", category: "Rage & Rap", vibe: "Moshpit • 145 BPM", artists: "Playboi Carti, Yeat, Ken Carson", desc: "Trap driven by euphoric, buzzing EDM synthesizer leads, distorted 808s, and hyper-futuristic rhythms." },
+      { name: "Drift Phonk", color: "#ff007f", category: "Phonk & Dance", vibe: "Cowbell • 160 BPM", artists: "Kordhell, DVRST, Hensonn", desc: "Memphis rap acapellas combined with aggressive cowbells and car-drift video aesthetics." },
+      { name: "Bedroom Pop", color: "#a855f7", category: "Indie & Alt", vibe: "Chill • Tape Lo-Fi", artists: "Clairo, Beabadoobee, Cavetown", desc: "Intimate DIY home recordings with chorus guitars, vintage keys, and delicate vocal layers." },
+      { name: "Brazilian Phonk", color: "#ffe600", category: "Phonk & Dance", vibe: "Baile • 130 BPM", artists: "Phonkha, Slowboy, DJ FKU", desc: "Favela funk rhythms fused with distorted phonk cowbells and heavy sub-bass pulses." },
+      { name: "Digicore", color: "#00f0ff", category: "Digital & Glitch", vibe: "Discord-Native", artists: "Jane Remover, midwxst, quinn", desc: "Hyperpop evolution mixing autotuned singing, bitcrushed chords, and fast breakbeats." },
+      { name: "PluggnB", color: "#ff5400", category: "Rage & Rap", vibe: "Smooth 808s", artists: "Autumn!, Summrs, Kankan", desc: "Melodic fusion of minimalist plugg beats with 2000s R&B vocal runs and bright synths." },
+      { name: "Nu-Gaze", color: "#a855f7", category: "Rock & Guitar", vibe: "Fuzz Shoegaze", artists: "Wisp, Julie, Narrow Head", desc: "Modern Gen Z revival of 90s shoegaze, featuring walls of fuzz pedals and whispery vocals." },
+      { name: "Slowed + Reverb", color: "#00ff88", category: "Internet Vibe", vibe: "Liminal Headspace", artists: "TikTok & YouTube Creators", desc: "Pitched-down, space-drenched songs creating a dreamy late-night emotional vibe." },
+      { name: "Amapiano", color: "#ffe600", category: "Global Club", vibe: "Log Drum Bass", artists: "Uncle Waffles, Kabza De Small", desc: "South African house hybrid of deep synths, soulful jazz chords, and wooden log drums." },
+      { name: "Breakcore", color: "#ff007f", category: "Digital & Glitch", vibe: "Frenetic • 180 BPM", artists: "Sewerslvt, Vertigoaway", desc: "Manic chopped Amen drum breaks colliding with anime soundbites and ambient pads." },
+      { name: "Corridos Sad", color: "#00f0ff", category: "Global Waves", vibe: "Acoustic Sierreño", artists: "Ivan Cornejo, Eslabon Armado", desc: "Slow, melancholic 12-string guitar ballads exploring heartbreak through youth Latin perspectives." },
+      { name: "Krushclub", color: "#00ff88", category: "Rage & Rap", vibe: "Fast Nightcore", artists: "Odetari, Lumi Athena, Asteria", desc: "Fast-paced cross between Jersey club kicks, nightcore hooks, and abrasive rage synths." },
+      { name: "Deftones-Core", color: "#a855f7", category: "Rock & Guitar", vibe: "Alt-Metal Wave", artists: "Fleshwater, Loathe, Moodring", desc: "Drop-tuned heavy riffs meeting ethereal whispering vocals and 90s grunge bridges." },
+      { name: "Sad Girl Indie", color: "#ffe600", category: "Indie & Alt", vibe: "Poetic & Stripped", artists: "Phoebe Bridgers, boygenius, Gracie Abrams", desc: "Confessional, poetic indie folk built around acoustic guitars and raw vocal storytelling." },
+      { name: "Jersey Club", color: "#ff007f", category: "Phonk & Dance", vibe: "5-Beat Bounce", artists: "Bandmanrill, Lil Uzi Vert", desc: "Syncopated five-beat kick pattern accented by vocal chops, squeaks, and rapid rhythms." },
+      { name: "Fast Techno", color: "#00ff88", category: "Phonk & Dance", vibe: "155 BPM Rave", artists: "Creeds, Sara Landry, Nico Moreno", desc: "Hard techno and schranz kicks paired with energetic melodic pop hooks." },
+      { name: "Modern Bossa", color: "#00f0ff", category: "Indie & Alt", vibe: "Jazz Bedroom Pop", artists: "Laufey", desc: "Brazilian Bossa Nova chords and vintage big-band style with modern youth lyricism." },
+      { name: "5th Gen K-Pop", color: "#ff5400", category: "Global Waves", vibe: "Liquid DnB Pop", artists: "NewJeans, ILLIT", desc: "K-pop embracing early 2000s liquid drum & bass breaks and breezy vocal delivery." },
+      { name: "Dariacore", color: "#a855f7", category: "Digital & Glitch", vibe: "Meme Chop Chaos", artists: "leroy / Jane Remover", desc: "High-speed Jersey breakbeats layered with rapid 2000s pop and internet meme samples." }
     ];
 
     const canvas = document.getElementById('wheelCanvas');
@@ -318,6 +321,7 @@
     let velocity = 0;
     let isSpinning = false;
 
+    // Render Wheel Function
     function renderWheel() {
       const size = canvas.width;
       const radius = size / 2;
@@ -330,38 +334,60 @@
       for (let i = 0; i < total; i++) {
         const start = i * sliceAngle;
         const end = start + sliceAngle;
+        const item = GENRES[i];
 
-        // Slice Background
+        // 1. Dark Carbon Slice Fill
         ctx.beginPath();
-        ctx.fillStyle = COLORS[i % COLORS.length];
+        ctx.fillStyle = i % 2 === 0 ? "#0d0e15" : "#141520";
         ctx.moveTo(0, 0);
-        ctx.arc(0, 0, radius - 10, start, end);
+        ctx.arc(0, 0, radius - 8, start, end);
         ctx.lineTo(0, 0);
         ctx.fill();
 
-        // Border Line
-        ctx.strokeStyle = "rgba(0, 0, 0, 0.4)";
-        ctx.lineWidth = 2.5;
+        // 2. Subtle slice divider
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.07)";
+        ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Slice Label Text
+        // 3. Glowing Outer Neon Rim per slice
+        ctx.beginPath();
+        ctx.arc(0, 0, radius - 8, start, end);
+        ctx.strokeStyle = item.color;
+        ctx.lineWidth = 7;
+        ctx.stroke();
+
+        // 4. Dot indicator at edge
+        const midAngle = start + sliceAngle / 2;
+        const dotX = Math.cos(midAngle) * (radius - 24);
+        const dotY = Math.sin(midAngle) * (radius - 24);
+        ctx.beginPath();
+        ctx.arc(dotX, dotY, 3.5, 0, 2 * Math.PI);
+        ctx.fillStyle = item.color;
+        ctx.fill();
+
+        // 5. High-Contrast Text
         ctx.save();
-        ctx.fillStyle = "#000000";
-        ctx.font = "bold 24px 'Space Grotesk', sans-serif";
         ctx.translate(
-          Math.cos(start + sliceAngle / 2) * (radius - 120),
-          Math.sin(start + sliceAngle / 2) * (radius - 120)
+          Math.cos(midAngle) * (radius - 125),
+          Math.sin(midAngle) * (radius - 125)
         );
-        ctx.rotate(start + sliceAngle / 2 + Math.PI);
-        ctx.fillText(GENRES[i].name, 0, 8);
+        ctx.rotate(midAngle + Math.PI);
+        
+        ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
+        ctx.shadowBlur = 8;
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 23px 'Space Grotesk', sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(item.name, 0, 0);
         ctx.restore();
       }
 
-      // Outer Rim Glow
+      // Outer Wheel Ring
       ctx.beginPath();
-      ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
-      ctx.lineWidth = 8;
+      ctx.arc(0, 0, radius - 4, 0, 2 * Math.PI);
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+      ctx.lineWidth = 6;
       ctx.stroke();
 
       ctx.restore();
@@ -382,10 +408,10 @@
       genreDesc.textContent = g.desc;
       genreArtists.textContent = g.artists;
 
-      const color = COLORS[idx % COLORS.length];
-      glow.style.background = `radial-gradient(circle, ${color}55 0%, transparent 70%)`;
-      genreCategory.style.borderColor = color;
-      genreCategory.style.color = color;
+      glow.style.background = `radial-gradient(circle, ${g.color}44 0%, transparent 70%)`;
+      genreCategory.style.borderColor = g.color;
+      genreCategory.style.color = g.color;
+      infoCard.style.borderColor = `${g.color}55`;
 
       infoCard.classList.remove('bump');
       void infoCard.offsetWidth;
@@ -408,14 +434,26 @@
     function spin() {
       if (isSpinning) return;
       isSpinning = true;
-      velocity = Math.random() * 0.25 + 0.35;
+      velocity = Math.random() * 0.25 + 0.38;
       spinAnimation();
     }
 
     spinBtn.addEventListener('click', spin);
     canvas.addEventListener('click', spin);
 
-    // Initial load
+    // ==========================================
+    // AUTO-WAKE FIX: Prevents blank canvas on idle
+    // ==========================================
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        renderWheel();
+      }
+    });
+    window.addEventListener('focus', renderWheel);
+    window.addEventListener('pageshow', renderWheel);
+    window.addEventListener('resize', renderWheel);
+
+    // Initial render
     renderWheel();
     updateDetails(0);
   </script>
