@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Gen Z Genre Roulette</title>
 
-  <!-- PWA & Mobile Web App Meta Tags -->
+  <!-- PWA & Mobile App Meta Tags -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#06070b" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -15,13 +15,15 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg: #06070b;
-      --card-bg: rgba(13, 15, 24, 0.88);
+      --card-bg: rgba(13, 15, 24, 0.9);
       --active-color: #00ff88;
+      --spotify: #1db954;
+      --ytmusic: #ff0033;
       --text: #ffffff;
       --text-muted: #94a3b8;
     }
@@ -65,25 +67,25 @@
     .top-section {
       position: relative;
       z-index: 2;
-      padding: 14px 18px 0;
+      padding: 12px 16px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .badge {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--active-color);
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid var(--active-color);
-      padding: 4px 14px;
+      padding: 3px 12px;
       border-radius: 20px;
-      box-shadow: 0 0 16px rgba(0, 255, 136, 0.3);
+      box-shadow: 0 0 14px rgba(0, 255, 136, 0.25);
       transition: all 0.35s ease;
     }
 
@@ -95,12 +97,12 @@
       border-left: 4px solid var(--active-color);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-radius: 20px;
-      padding: 16px 18px;
+      border-radius: 18px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
       transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.35s ease;
     }
 
@@ -122,8 +124,8 @@
       color: var(--active-color);
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--active-color);
-      padding: 3px 10px;
-      border-radius: 8px;
+      padding: 2px 8px;
+      border-radius: 6px;
       transition: all 0.35s ease;
     }
 
@@ -133,51 +135,142 @@
       font-weight: 600;
     }
 
+    /* Title Row with Copy Button */
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
     .genre-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 26px;
+      font-size: 23px;
       font-weight: 800;
       color: #ffffff;
       line-height: 1.1;
       letter-spacing: -0.5px;
     }
 
-    .genre-description {
-      font-size: 12.5px;
-      line-height: 1.4;
-      color: #d1d5db;
-      min-height: 36px;
-    }
-
-    .artist-row {
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 7px 12px;
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--active-color);
+      border-radius: 8px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 12px;
+      gap: 4px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
     }
 
-    .artist-label {
+    .copy-btn:active {
+      transform: scale(0.92);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .genre-description {
+      font-size: 12px;
+      line-height: 1.35;
+      color: #d1d5db;
+      min-height: 32px;
+    }
+
+    /* Top 10 Artists Scroll Container */
+    .artists-section {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .artists-header {
+      font-size: 9px;
       font-weight: 800;
       color: var(--active-color);
       text-transform: uppercase;
-      font-size: 10px;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
       transition: color 0.35s ease;
     }
 
-    .artist-list {
-      color: #ffffff;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .artists-scroll-row {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
     }
 
-    /* Bottom Roulette Section */
+    .artists-scroll-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .artist-chip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      color: #f1f5f9;
+    }
+
+    /* Music Streaming Links */
+    .links-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .music-link-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .music-link-btn.spotify {
+      border-color: rgba(29, 185, 84, 0.4);
+    }
+
+    .music-link-btn.spotify:active {
+      background: rgba(29, 185, 84, 0.2);
+      transform: scale(0.96);
+    }
+
+    .music-link-btn.ytmusic {
+      border-color: rgba(255, 0, 51, 0.4);
+    }
+
+    .music-link-btn.ytmusic:active {
+      background: rgba(255, 0, 51, 0.2);
+      transform: scale(0.96);
+    }
+
+    .music-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .spotify .music-dot { background: var(--spotify); box-shadow: 0 0 6px var(--spotify); }
+    .ytmusic .music-dot { background: var(--ytmusic); box-shadow: 0 0 6px var(--ytmusic); }
+
+    /* Bottom Roulette Stage */
     .roulette-wrapper {
       position: relative;
       width: 100%;
@@ -189,7 +282,6 @@
       z-index: 1;
     }
 
-    /* Top Center Marker */
     .marker {
       position: absolute;
       top: 0;
@@ -220,14 +312,13 @@
       border-radius: 50%;
     }
 
-    /* Spin Button */
     .spin-center-btn {
       position: absolute;
       top: calc(14px + 225px);
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 94px;
-      height: 94px;
+      width: 92px;
+      height: 92px;
       border-radius: 50%;
       background: radial-gradient(circle, #1a1c29 0%, #090a10 100%);
       border: 3px solid var(--active-color);
@@ -265,20 +356,43 @@
   <div class="top-section">
     <div class="badge" id="appBadge">Gen Z Sonic Roulette</div>
     <div class="info-card" id="infoCard">
+      
       <div class="card-meta">
         <span class="category-pill" id="genreCategory">Rage & Rap</span>
         <span class="vibe-text" id="genreVibe">Moshpit • 145 BPM</span>
       </div>
-      <h2 class="genre-name" id="genreTitle">Rage Rap</h2>
-      <p class="genre-description" id="genreDesc">Trap driven by euphoric, buzzing EDM synthesizer leads, distorted 808s, and hyper-futuristic rhythms.</p>
-      <div class="artist-row">
-        <span class="artist-label" id="artistLabel">Key Artists</span>
-        <span class="artist-list" id="genreArtists">Playboi Carti, Yeat, Ken Carson</span>
+
+      <!-- Title & Copy Button -->
+      <div class="title-row">
+        <h2 class="genre-name" id="genreTitle">Rage Rap</h2>
+        <button class="copy-btn" id="copyBtn">
+          <span id="copyIcon">📋</span>
+          <span id="copyText">COPY</span>
+        </button>
       </div>
+
+      <p class="genre-description" id="genreDesc">Trap driven by euphoric, buzzing EDM synthesizer leads, distorted 808s, and hyper-futuristic rhythms.</p>
+      
+      <!-- Top 10 Artists Horizontal Badges -->
+      <div class="artists-section">
+        <span class="artists-header" id="artistsHeader">Top 10 Artists</span>
+        <div class="artists-scroll-row" id="artistsContainer"></div>
+      </div>
+
+      <!-- Direct Music Links -->
+      <div class="links-row">
+        <a href="#" target="_blank" class="music-link-btn spotify" id="spotifyLink">
+          <span class="music-dot"></span> Spotify
+        </a>
+        <a href="#" target="_blank" class="music-link-btn ytmusic" id="ytMusicLink">
+          <span class="music-dot"></span> YouTube Music
+        </a>
+      </div>
+
     </div>
   </div>
 
-  <!-- Bottom Wheel Section -->
+  <!-- Bottom Roulette Wheel -->
   <div class="roulette-wrapper">
     <div class="marker" id="marker"></div>
     <div class="canvas-container">
@@ -291,27 +405,168 @@
   </div>
 
   <script>
+    // 20 Curated Distinct Genres with Top 10 Artists each
     const GENRES = [
-      { name: "Rage Rap", color: "#00ff88", category: "Rage & Rap", vibe: "Moshpit • 145 BPM", artists: "Playboi Carti, Yeat, Ken Carson", desc: "Trap driven by euphoric, buzzing EDM synthesizer leads, distorted 808s, and hyper-futuristic rhythms." },
-      { name: "Hyperpop", color: "#00f0ff", category: "Digital & Glitch", vibe: "Maximalist • High BPM", artists: "100 gecs, SOPHIE, Charli xcx", desc: "Maximalist pop pushed into abrasive synthetic sound design, pitch-shifted vocals, and metallic bass drops." },
-      { name: "Drift Phonk", color: "#ff0055", category: "Phonk & Dance", vibe: "Cowbell • 160 BPM", artists: "Kordhell, DVRST, Hensonn", desc: "Memphis rap acapellas combined with aggressive cowbells and car-drift video aesthetics." },
-      { name: "Bedroom Pop", color: "#bf5af2", category: "Indie & Alt", vibe: "Chill • Tape Lo-Fi", artists: "Clairo, Beabadoobee, Cavetown", desc: "Intimate DIY home recordings with chorus guitars, vintage keys, and delicate vocal layers." },
-      { name: "Brazilian Phonk", color: "#ffd60a", category: "Phonk & Dance", vibe: "Baile • 130 BPM", artists: "Phonkha, Slowboy, DJ FKU", desc: "Favela funk rhythms fused with distorted phonk cowbells and heavy sub-bass pulses." },
-      { name: "Digicore", color: "#30d158", category: "Digital & Glitch", vibe: "Discord-Native", artists: "Jane Remover, midwxst, quinn", desc: "Hyperpop evolution mixing autotuned singing, bitcrushed chords, and fast breakbeats." },
-      { name: "PluggnB", color: "#ff9f0a", category: "Rage & Rap", vibe: "Smooth 808s", artists: "Autumn!, Summrs, Kankan", desc: "Melodic fusion of minimalist plugg beats with 2000s R&B vocal runs and bright synths." },
-      { name: "Nu-Gaze", color: "#da8fff", category: "Rock & Guitar", vibe: "Fuzz Shoegaze", artists: "Wisp, Julie, Narrow Head", desc: "Modern Gen Z revival of 90s shoegaze, featuring walls of fuzz pedals and whispery vocals." },
-      { name: "Slowed + Reverb", color: "#64d2ff", category: "Internet Vibe", vibe: "Liminal Headspace", artists: "TikTok & YouTube Creators", desc: "Pitched-down, space-drenched songs creating a dreamy late-night emotional vibe." },
-      { name: "Amapiano", color: "#ffcc00", category: "Global Club", vibe: "Log Drum Bass", artists: "Uncle Waffles, Kabza De Small", desc: "South African house hybrid of deep synths, soulful jazz chords, and wooden log drums." },
-      { name: "Breakcore", color: "#ff2d55", category: "Digital & Glitch", vibe: "Frenetic • 180 BPM", artists: "Sewerslvt, Vertigoaway", desc: "Manic chopped Amen drum breaks colliding with anime soundbites and ambient pads." },
-      { name: "Corridos Sad", color: "#00e5ff", category: "Global Waves", vibe: "Acoustic Sierreño", artists: "Ivan Cornejo, Eslabon Armado", desc: "Slow, melancholic 12-string guitar ballads exploring heartbreak through youth Latin perspectives." },
-      { name: "Krushclub", color: "#10b981", category: "Rage & Rap", vibe: "Fast Nightcore", artists: "Odetari, Lumi Athena, Asteria", desc: "Fast-paced cross between Jersey club kicks, nightcore hooks, and abrasive rage synths." },
-      { name: "Deftones-Core", color: "#af52de", category: "Rock & Guitar", vibe: "Alt-Metal Wave", artists: "Fleshwater, Loathe, Moodring", desc: "Drop-tuned heavy riffs meeting ethereal whispering vocals and 90s grunge bridges." },
-      { name: "Sad Girl Indie", color: "#ffbe0b", category: "Indie & Alt", vibe: "Poetic & Stripped", artists: "Phoebe Bridgers, boygenius, Gracie", desc: "Confessional, poetic indie folk built around acoustic guitars and raw vocal storytelling." },
-      { name: "Jersey Club", color: "#ff007f", category: "Phonk & Dance", vibe: "5-Beat Bounce", artists: "Bandmanrill, Lil Uzi Vert", desc: "Syncopated five-beat kick pattern accented by vocal chops, squeaks, and rapid rhythms." },
-      { name: "Fast Techno", color: "#00f5d4", category: "Phonk & Dance", vibe: "155 BPM Rave", artists: "Creeds, Sara Landry, Nico Moreno", desc: "Hard techno and schranz kicks paired with energetic melodic pop hooks." },
-      { name: "Modern Bossa", color: "#4cc9f0", category: "Indie & Alt", vibe: "Jazz Bedroom Pop", artists: "Laufey", desc: "Brazilian Bossa Nova chords and vintage big-band style with modern youth lyricism." },
-      { name: "5th Gen K-Pop", color: "#fb5607", category: "Global Waves", vibe: "Liquid DnB Pop", artists: "NewJeans, ILLIT", desc: "K-pop embracing early 2000s liquid drum & bass breaks and breezy vocal delivery." },
-      { name: "Dariacore", color: "#8338ec", category: "Digital & Glitch", vibe: "Meme Chop Chaos", artists: "leroy / Jane Remover", desc: "High-speed Jersey breakbeats layered with rapid 2000s pop and internet meme samples." }
+      { 
+        name: "Rage Rap", 
+        color: "#00ff88", 
+        category: "Rage & Rap", 
+        vibe: "Moshpit • 145 BPM", 
+        artists: ["Playboi Carti", "Yeat", "Ken Carson", "Destroy Lonely", "Trippie Redd", "Homixide Gang", "SoFaygo", "Lancey Foux", "Hardrock", "UnoTheActivist"],
+        desc: "Trap driven by euphoric, buzzing EDM synthesizer leads, distorted 808s, and hyper-futuristic rhythms." 
+      },
+      { 
+        name: "Hyperpop", 
+        color: "#00f0ff", 
+        category: "Digital & Glitch", 
+        vibe: "Maximalist • High BPM", 
+        artists: ["100 gecs", "SOPHIE", "Charli xcx", "Dorian Electra", "glaive", "ericdoa", "A. G. Cook", "Slayyyter", "Dylan Brady", "Danny L Harle"],
+        desc: "Maximalist pop pushed into abrasive synthetic sound design, pitch-shifted vocals, and metallic bass drops." 
+      },
+      { 
+        name: "Drift Phonk", 
+        color: "#ff0055", 
+        category: "Phonk & Dance", 
+        vibe: "Cowbell • 160 BPM", 
+        artists: ["Kordhell", "DVRST", "Hensonn", "Pharmacist", "Ghostface Playa", "SXID", "INTERWORLD", "Twisted", "cowbell cult", "Playaphonk"],
+        desc: "Memphis rap acapellas combined with aggressive cowbells and car-drift video aesthetics." 
+      },
+      { 
+        name: "Bedroom Pop", 
+        color: "#bf5af2", 
+        category: "Indie & Alt", 
+        vibe: "Chill • Tape Lo-Fi", 
+        artists: ["Clairo", "Beabadoobee", "Cavetown", "Cuco", "mxmtoon", "boy pablo", "girl in red", "Conan Gray", "Rex Orange County", "Arlo Parks"],
+        desc: "Intimate DIY home recordings with chorus guitars, vintage keys, and delicate vocal layers." 
+      },
+      { 
+        name: "Brazilian Phonk", 
+        color: "#ffd60a", 
+        category: "Phonk & Dance", 
+        vibe: "Baile • 130 BPM", 
+        artists: ["Phonkha", "Slowboy", "DJ FKU", "DJ Ramon Sucesso", "MC GW", "Crazy Mano", "MC Menor", "DJ NK da Serra", "DJ GBR", "Nito-Onna"],
+        desc: "Favela funk rhythms fused with distorted phonk cowbells and heavy sub-bass pulses." 
+      },
+      { 
+        name: "Digicore", 
+        color: "#30d158", 
+        category: "Digital & Glitch", 
+        vibe: "Discord-Native", 
+        artists: ["Jane Remover", "midwxst", "quinn", "dltzk", "saturn", "kuru", "pitfall", "angelus", "blackwinterwells", "funeral"],
+        desc: "Hyperpop evolution mixing autotuned singing, bitcrushed chords, and fast breakbeats." 
+      },
+      { 
+        name: "PluggnB", 
+        color: "#ff9f0a", 
+        category: "Rage & Rap", 
+        vibe: "Smooth 808s", 
+        artists: ["Autumn!", "Summrs", "Kankan", "SSGKobe", "Goyxrd", "Izaya Tiji", "Rich Amiri", "Kaash Paige", "iayze", "BabySantana"],
+        desc: "Melodic fusion of minimalist plugg beats with 2000s R&B vocal runs and bright synths." 
+      },
+      { 
+        name: "Nu-Gaze", 
+        color: "#da8fff", 
+        category: "Rock & Guitar", 
+        vibe: "Fuzz Shoegaze", 
+        artists: ["Wisp", "Julie", "Narrow Head", "Hotline TNT", "DIIV", "Wednesday", "glare", "TAGABOW", "Kraus", "They Are Gutting"],
+        desc: "Modern Gen Z revival of 90s shoegaze, featuring walls of fuzz pedals and whispery vocals." 
+      },
+      { 
+        name: "Slowed + Reverb", 
+        color: "#64d2ff", 
+        category: "Internet Vibe", 
+        vibe: "Liminal Headspace", 
+        artists: ["Joji", "The Weeknd", "Mareux", "Past Lives edits", "Mr. Kitty", "Cigarettes After Sex", "Beach House", "Eyedress", "Crystal Castles", "Current Joys"],
+        desc: "Pitched-down, space-drenched songs creating a dreamy late-night emotional vibe." 
+      },
+      { 
+        name: "Amapiano", 
+        color: "#ffcc00", 
+        category: "Global Club", 
+        vibe: "Log Drum Bass", 
+        artists: ["Uncle Waffles", "Kabza De Small", "DJ Maphorisa", "Focalistic", "Tyler ICU", "Musa Keys", "Young Stunna", "DBN Gogo", "Major League DJz", "Daliwonga"],
+        desc: "South African house hybrid of deep synths, soulful jazz chords, and wooden log drums." 
+      },
+      { 
+        name: "Breakcore", 
+        color: "#ff2d55", 
+        category: "Digital & Glitch", 
+        vibe: "Frenetic • 180 BPM", 
+        artists: ["Sewerslvt", "Vertigoaway", "Machine Girl", "Goreshit", "Rory", "Nedaj", "Venetian Snares", "TOKYOPILL", "bye2", "Loli in early 20s"],
+        desc: "Manic chopped Amen drum breaks colliding with anime soundbites and ambient pads." 
+      },
+      { 
+        name: "Corridos Sad", 
+        color: "#00e5ff", 
+        category: "Global Waves", 
+        vibe: "Acoustic Sierreño", 
+        artists: ["Ivan Cornejo", "Eslabon Armado", "Junior H", "Peso Pluma", "DannyLux", "Yahritza y Su Esencia", "Fuerza Regida", "Marca MP", "Grupo Frontera", "Xavi"],
+        desc: "Slow, melancholic 12-string guitar ballads exploring heartbreak through youth Latin perspectives." 
+      },
+      { 
+        name: "Krushclub", 
+        color: "#10b981", 
+        category: "Rage & Rap", 
+        vibe: "Fast Nightcore", 
+        artists: ["Odetari", "Lumi Athena", "Asteria", "Cade Clair", "Jnhygs", "6arelyhuman", "SyKo", "kets4eki", "asteria", "stardriver"],
+        desc: "Fast-paced cross between Jersey club kicks, nightcore hooks, and abrasive rage synths." 
+      },
+      { 
+        name: "Deftones-Core", 
+        color: "#af52de", 
+        category: "Rock & Guitar", 
+        vibe: "Alt-Metal Wave", 
+        artists: ["Fleshwater", "Loathe", "Moodring", "Narrow Head", "Soul Blind", "Static Dress", "Thornhill", "Teenage Wrist", "Superheaven", "Bleed"],
+        desc: "Drop-tuned heavy riffs meeting ethereal whispering vocals and 90s grunge bridges." 
+      },
+      { 
+        name: "Sad Girl Indie", 
+        color: "#ffbe0b", 
+        category: "Indie & Alt", 
+        vibe: "Poetic & Stripped", 
+        artists: ["Phoebe Bridgers", "boygenius", "Gracie Abrams", "Lucy Dacus", "Julien Baker", "Lizzy McAlpine", "Maya Hawke", "Mitski", "Soccer Mommy", "Faye Webster"],
+        desc: "Confessional, poetic indie folk built around acoustic guitars and raw vocal storytelling." 
+      },
+      { 
+        name: "Jersey Club", 
+        color: "#ff007f", 
+        category: "Phonk & Dance", 
+        vibe: "5-Beat Bounce", 
+        artists: ["Bandmanrill", "Lil Uzi Vert", "Cookiee Kawaii", "UNIIQU3", "DJ Sliink", "DJ Jayhood", "DJ Tameil", "TrippyTurtle", "Coi Leray", "Ice Spice"],
+        desc: "Syncopated five-beat kick pattern accented by vocal chops, squeaks, and rapid rhythms." 
+      },
+      { 
+        name: "Fast Techno", 
+        color: "#00f5d4", 
+        category: "Phonk & Dance", 
+        vibe: "155 BPM Rave", 
+        artists: ["Creeds", "Sara Landry", "Nico Moreno", "Klangkuenstler", "Indira Paganotto", "Alignment", "I Hate Models", "999999999", "Charlie Sparks", "TRYM"],
+        desc: "Hard techno and schranz kicks paired with energetic melodic pop hooks." 
+      },
+      { 
+        name: "Modern Bossa", 
+        color: "#4cc9f0", 
+        category: "Indie & Alt", 
+        vibe: "Jazz Bedroom Pop", 
+        artists: ["Laufey", "Bruno Major", "Eloise", "Stacey Ryan", "grentperez", "Joy Crookes", "Lizzy McAlpine", "Norah Jones", "Maya Delilah", "Arlo Parks"],
+        desc: "Brazilian Bossa Nova chords and vintage big-band style with modern youth lyricism." 
+      },
+      { 
+        name: "5th Gen K-Pop", 
+        color: "#fb5607", 
+        category: "Global Waves", 
+        vibe: "Liquid DnB Pop", 
+        artists: ["NewJeans", "ILLIT", "LE SSERAFIM", "aespa", "RIIZE", "BABYMONSTER", "KISS OF LIFE", "TWS", "BOYNEXTDOOR", "NMIXX"],
+        desc: "K-pop embracing early 2000s liquid drum & bass breaks and breezy vocal delivery." 
+      },
+      { 
+        name: "Dariacore", 
+        color: "#8338ec", 
+        category: "Digital & Glitch", 
+        vibe: "Meme Chop Chaos", 
+        artists: ["leroy", "Jane Remover", "c2star", "trustedblust", "d0llywood1", "lieu", "recovery girl", "meat computer", "STARKIDS", "underscores"],
+        desc: "High-speed Jersey breakbeats layered with rapid 2000s pop and internet meme samples." 
+      }
     ];
 
     const canvas = document.getElementById('wheelCanvas');
@@ -320,20 +575,73 @@
     const infoCard = document.getElementById('infoCard');
     const glow = document.getElementById('glow');
     const appBadge = document.getElementById('appBadge');
-    const artistLabel = document.getElementById('artistLabel');
-    const spinBtnSub = document.getElementById('spinBtnSub');
+    const artistsHeader = document.getElementById('artistsHeader');
+    const artistsContainer = document.getElementById('artistsContainer');
+    const spotifyLink = document.getElementById('spotifyLink');
+    const ytMusicLink = document.getElementById('ytMusicLink');
+    const copyBtn = document.getElementById('copyBtn');
+    const copyText = document.getElementById('copyText');
+    const copyIcon = document.getElementById('copyIcon');
 
     const genreTitle = document.getElementById('genreTitle');
     const genreCategory = document.getElementById('genreCategory');
     const genreVibe = document.getElementById('genreVibe');
     const genreDesc = document.getElementById('genreDesc');
-    const genreArtists = document.getElementById('genreArtists');
 
     const total = GENRES.length;
     const sliceAngle = (2 * Math.PI) / total;
     let currentAngle = 0;
     let velocity = 0;
     let isSpinning = false;
+    let audioCtx = null;
+
+    // Realistic Web Audio FX
+    function playTickSound() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(480, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.035);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.035);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.035);
+      } catch (e) {}
+
+      // Haptic Vibration on Tick
+      if (navigator.vibrate) {
+        navigator.vibrate(10);
+      }
+    }
+
+    function playWinSound() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.07);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime + idx * 0.07);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.07 + 0.3);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(audioCtx.currentTime + idx * 0.07);
+          osc.stop(audioCtx.currentTime + idx * 0.07 + 0.3);
+        });
+      } catch(e) {}
+
+      // Haptic Vibration Pattern on Selection Win
+      if (navigator.vibrate) {
+        navigator.vibrate([35, 45, 65]);
+      }
+    }
 
     function hexToRgba(hex, alpha) {
       hex = hex.replace('#', '');
@@ -366,7 +674,7 @@
         const item = GENRES[i];
         const isActive = (i === activeIndex);
 
-        // 1. Slice Background
+        // 1. Slice Base Gradient
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.arc(0, 0, radius - 8, start, end);
@@ -388,7 +696,7 @@
         }
         ctx.fill();
 
-        // 2. Laser Dividers
+        // 2. High-Contrast Laser Dividers
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(Math.cos(start) * (radius - 8), Math.sin(start) * (radius - 8));
@@ -403,7 +711,7 @@
         ctx.lineWidth = isActive ? 12 : 6;
         ctx.stroke();
 
-        // 4. Slice Text
+        // 4. Slice Text Label
         ctx.save();
         const midAngle = start + sliceAngle / 2;
         ctx.translate(
@@ -447,8 +755,22 @@
       genreCategory.textContent = g.category;
       genreVibe.textContent = g.vibe;
       genreDesc.textContent = g.desc;
-      genreArtists.textContent = g.artists;
 
+      // Render Top 10 Artist Badges
+      artistsContainer.innerHTML = '';
+      g.artists.forEach(artist => {
+        const chip = document.createElement('span');
+        chip.className = 'artist-chip';
+        chip.textContent = artist;
+        artistsContainer.appendChild(chip);
+      });
+
+      // Update Streaming Direct Links
+      const query = encodeURIComponent(g.name + " music");
+      spotifyLink.href = `https://open.spotify.com/search/${query}`;
+      ytMusicLink.href = `https://music.youtube.com/search?q=${query}`;
+
+      // Update dynamic colors
       if (lastColor !== g.color) {
         document.documentElement.style.setProperty('--active-color', g.color);
         glow.style.background = `radial-gradient(circle, ${g.color}55 0%, transparent 70%)`;
@@ -462,6 +784,24 @@
       }
     }
 
+    // One-Tap Copy Genre Name
+    copyBtn.addEventListener('click', async () => {
+      const currentGenreName = genreTitle.textContent;
+      try {
+        await navigator.clipboard.writeText(currentGenreName);
+        copyIcon.textContent = '✅';
+        copyText.textContent = 'COPIED!';
+        if (navigator.vibrate) navigator.vibrate(20);
+        setTimeout(() => {
+          copyIcon.textContent = '📋';
+          copyText.textContent = 'COPY';
+        }, 1800);
+      } catch (err) {
+        alert("Copied: " + currentGenreName);
+      }
+    });
+
+    // Spin animation with Real-Time Sound & Passing Slice Updates
     let lastPassedIdx = -1;
     function spinAnimation() {
       if (velocity > 0.001) {
@@ -470,6 +810,7 @@
 
         const currentIdx = getCurrentIndex();
         if (currentIdx !== lastPassedIdx) {
+          playTickSound();
           updateDetails(currentIdx, false);
           lastPassedIdx = currentIdx;
         }
@@ -482,6 +823,7 @@
         const finalIdx = getCurrentIndex();
         updateDetails(finalIdx, true);
         renderWheel();
+        playWinSound();
       }
     }
 
