@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Gen Z Genre Roulette</title>
+  <title>Gen Z Genre Roller</title>
 
-  <!-- PWA & Mobile App Meta Tags -->
+  <!-- PWA & Mobile Web App Meta Tags -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#06070b" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -20,7 +20,7 @@
   <style>
     :root {
       --bg: #06070b;
-      --card-bg: rgba(13, 15, 24, 0.9);
+      --card-bg: rgba(13, 15, 24, 0.92);
       --active-color: #00ff88;
       --spotify: #1db954;
       --ytmusic: #ff0033;
@@ -101,7 +101,7 @@
       padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
       transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.35s ease;
     }
@@ -145,7 +145,7 @@
 
     .genre-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 23px;
+      font-size: 22px;
       font-weight: 800;
       color: #ffffff;
       line-height: 1.1;
@@ -270,81 +270,179 @@
     .spotify .music-dot { background: var(--spotify); box-shadow: 0 0 6px var(--spotify); }
     .ytmusic .music-dot { background: var(--ytmusic); box-shadow: 0 0 6px var(--ytmusic); }
 
-    /* Bottom Roulette Stage */
-    .roulette-wrapper {
+    /* =========================================================
+       CS:GO / CASINO HORIZONTAL ROLLER SECTION
+       ========================================================= */
+    .roller-container {
       position: relative;
       width: 100%;
-      height: 48vh;
-      overflow: hidden;
+      padding-bottom: 22px;
       display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      z-index: 1;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      z-index: 2;
     }
 
-    .marker {
+    /* Slot Reel Stage with Vignette Mask */
+    .reel-viewport {
+      position: relative;
+      width: 100%;
+      height: 120px;
+      background: #090b12;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
+    }
+
+    /* Center Laser & Pointer */
+    .center-laser {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      background: var(--active-color);
+      box-shadow: 0 0 14px var(--active-color), 0 0 24px var(--active-color);
+      z-index: 10;
+      pointer-events: none;
+      transition: background 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .center-laser::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 14px solid transparent;
-      border-right: 14px solid transparent;
-      border-top: 24px solid var(--active-color);
-      z-index: 10;
-      filter: drop-shadow(0 0 12px var(--active-color));
-      transition: border-top-color 0.25s ease, filter 0.25s ease;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 12px solid var(--active-color);
+      transition: border-top-color 0.35s ease;
     }
 
-    .canvas-container {
+    .center-laser::after {
+      content: '';
       position: absolute;
-      top: 14px;
-      width: 450px;
-      height: 450px;
-      border-radius: 50%;
-    }
-
-    canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-      border-radius: 50%;
-    }
-
-    .spin-center-btn {
-      position: absolute;
-      top: calc(14px + 225px);
+      bottom: 0;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 92px;
-      height: 92px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #1a1c29 0%, #090a10 100%);
-      border: 3px solid var(--active-color);
-      color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 800;
-      font-size: 15px;
-      cursor: pointer;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 12px solid var(--active-color);
+      transition: border-bottom-color 0.35s ease;
+    }
+
+    /* Moving Reel Track */
+    .reel-track {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      left: 0;
+      will-change: transform;
+    }
+
+    /* Individual Genre Card inside Reel */
+    .reel-card {
+      width: 124px;
+      height: 94px;
+      margin: 0 4px;
+      background: #11131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      padding: 10px;
+      flex-shrink: 0;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reel-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--card-accent, #00ff88);
+      box-shadow: 0 0 8px var(--card-accent, #00ff88);
+    }
+
+    .reel-card .card-cat {
+      font-size: 8.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--card-accent, #00ff88);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .reel-card .card-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .reel-card .card-bpm {
+      font-size: 9px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Action Open / Spin Button */
+    .spin-bar-btn {
+      width: calc(100% - 36px);
+      max-width: 420px;
+      height: 52px;
+      border-radius: 14px;
+      background: radial-gradient(circle, #1a1c29 0%, #0d0e15 100%);
+      border: 2px solid var(--active-color);
+      color: #ffffff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 25px var(--active-color), inset 0 2px 4px rgba(255, 255, 255, 0.3);
-      z-index: 9;
+      gap: 8px;
+      box-shadow: 0 0 20px var(--active-color), inset 0 1px 2px rgba(255, 255, 255, 0.3);
       transition: transform 0.15s ease, border-color 0.35s ease, box-shadow 0.35s ease;
     }
 
-    .spin-center-btn:active {
-      transform: translate(-50%, -50%) scale(0.92);
+    .spin-bar-btn:active {
+      transform: scale(0.96);
     }
 
-    .spin-center-btn span {
-      font-size: 9px;
+    .spin-bar-btn .btn-sub {
+      font-size: 10px;
       color: var(--active-color);
-      letter-spacing: 1px;
-      transition: color 0.35s ease;
+      border: 1px solid var(--active-color);
+      padding: 1px 6px;
+      border-radius: 6px;
+      transition: all 0.35s ease;
     }
   </style>
 </head>
@@ -354,28 +452,28 @@
 
   <!-- Top Info Card -->
   <div class="top-section">
-    <div class="badge" id="appBadge">Gen Z Sonic Roulette</div>
+    <div class="badge" id="appBadge">100 Gen Z Genres</div>
     <div class="info-card" id="infoCard">
       
       <div class="card-meta">
-        <span class="category-pill" id="genreCategory">Rage & Rap</span>
-        <span class="vibe-text" id="genreVibe">Moshpit • 145 BPM</span>
+        <span class="category-pill" id="genreCategory">Glitch & Digital</span>
+        <span class="vibe-text" id="genreVibe">Maximalist • High BPM</span>
       </div>
 
       <!-- Title & Copy Button -->
       <div class="title-row">
-        <h2 class="genre-name" id="genreTitle">Rage Rap</h2>
+        <h2 class="genre-name" id="genreTitle">Hyperpop</h2>
         <button class="copy-btn" id="copyBtn">
           <span id="copyIcon">📋</span>
           <span id="copyText">COPY</span>
         </button>
       </div>
 
-      <p class="genre-description" id="genreDesc">Trap driven by euphoric, buzzing EDM synthesizer leads, distorted 808s, and hyper-futuristic rhythms.</p>
+      <p class="genre-description" id="genreDesc">Pushed maximalist, pitch-shifted pop into abrasive, distorted synths and high-BPM chaos.</p>
       
       <!-- Top 10 Artists Horizontal Badges -->
       <div class="artists-section">
-        <span class="artists-header" id="artistsHeader">Top 10 Artists</span>
+        <span class="artists-header" id="artistsHeader">Top Artists</span>
         <div class="artists-scroll-row" id="artistsContainer"></div>
       </div>
 
@@ -392,185 +490,139 @@
     </div>
   </div>
 
-  <!-- Bottom Roulette Wheel -->
-  <div class="roulette-wrapper">
-    <div class="marker" id="marker"></div>
-    <div class="canvas-container">
-      <canvas id="wheelCanvas" width="900" height="900"></canvas>
+  <!-- Bottom CS:GO Slot Roller Section -->
+  <div class="roller-container">
+    <div class="reel-viewport" id="reelViewport">
+      <div class="center-laser"></div>
+      <div class="reel-track" id="reelTrack"></div>
     </div>
-    <button class="spin-center-btn" id="spinBtn">
-      SPIN
-      <span id="spinBtnSub">TAP HERE</span>
+
+    <button class="spin-bar-btn" id="spinBtn">
+      OPEN CASE
+      <span class="btn-sub" id="btnSub">100 GENRES</span>
     </button>
   </div>
 
   <script>
-    // 20 Curated Distinct Genres with Top 10 Artists each
-    const GENRES = [
-      { 
-        name: "Rage Rap", 
-        color: "#00ff88", 
-        category: "Rage & Rap", 
-        vibe: "Moshpit • 145 BPM", 
-        artists: ["Playboi Carti", "Yeat", "Ken Carson", "Destroy Lonely", "Trippie Redd", "Homixide Gang", "SoFaygo", "Lancey Foux", "Hardrock", "UnoTheActivist"],
-        desc: "Trap driven by euphoric, buzzing EDM synthesizer leads, distorted 808s, and hyper-futuristic rhythms." 
-      },
-      { 
-        name: "Hyperpop", 
-        color: "#00f0ff", 
-        category: "Digital & Glitch", 
-        vibe: "Maximalist • High BPM", 
-        artists: ["100 gecs", "SOPHIE", "Charli xcx", "Dorian Electra", "glaive", "ericdoa", "A. G. Cook", "Slayyyter", "Dylan Brady", "Danny L Harle"],
-        desc: "Maximalist pop pushed into abrasive synthetic sound design, pitch-shifted vocals, and metallic bass drops." 
-      },
-      { 
-        name: "Drift Phonk", 
-        color: "#ff0055", 
-        category: "Phonk & Dance", 
-        vibe: "Cowbell • 160 BPM", 
-        artists: ["Kordhell", "DVRST", "Hensonn", "Pharmacist", "Ghostface Playa", "SXID", "INTERWORLD", "Twisted", "cowbell cult", "Playaphonk"],
-        desc: "Memphis rap acapellas combined with aggressive cowbells and car-drift video aesthetics." 
-      },
-      { 
-        name: "Bedroom Pop", 
-        color: "#bf5af2", 
-        category: "Indie & Alt", 
-        vibe: "Chill • Tape Lo-Fi", 
-        artists: ["Clairo", "Beabadoobee", "Cavetown", "Cuco", "mxmtoon", "boy pablo", "girl in red", "Conan Gray", "Rex Orange County", "Arlo Parks"],
-        desc: "Intimate DIY home recordings with chorus guitars, vintage keys, and delicate vocal layers." 
-      },
-      { 
-        name: "Brazilian Phonk", 
-        color: "#ffd60a", 
-        category: "Phonk & Dance", 
-        vibe: "Baile • 130 BPM", 
-        artists: ["Phonkha", "Slowboy", "DJ FKU", "DJ Ramon Sucesso", "MC GW", "Crazy Mano", "MC Menor", "DJ NK da Serra", "DJ GBR", "Nito-Onna"],
-        desc: "Favela funk rhythms fused with distorted phonk cowbells and heavy sub-bass pulses." 
-      },
-      { 
-        name: "Digicore", 
-        color: "#30d158", 
-        category: "Digital & Glitch", 
-        vibe: "Discord-Native", 
-        artists: ["Jane Remover", "midwxst", "quinn", "dltzk", "saturn", "kuru", "pitfall", "angelus", "blackwinterwells", "funeral"],
-        desc: "Hyperpop evolution mixing autotuned singing, bitcrushed chords, and fast breakbeats." 
-      },
-      { 
-        name: "PluggnB", 
-        color: "#ff9f0a", 
-        category: "Rage & Rap", 
-        vibe: "Smooth 808s", 
-        artists: ["Autumn!", "Summrs", "Kankan", "SSGKobe", "Goyxrd", "Izaya Tiji", "Rich Amiri", "Kaash Paige", "iayze", "BabySantana"],
-        desc: "Melodic fusion of minimalist plugg beats with 2000s R&B vocal runs and bright synths." 
-      },
-      { 
-        name: "Nu-Gaze", 
-        color: "#da8fff", 
-        category: "Rock & Guitar", 
-        vibe: "Fuzz Shoegaze", 
-        artists: ["Wisp", "Julie", "Narrow Head", "Hotline TNT", "DIIV", "Wednesday", "glare", "TAGABOW", "Kraus", "They Are Gutting"],
-        desc: "Modern Gen Z revival of 90s shoegaze, featuring walls of fuzz pedals and whispery vocals." 
-      },
-      { 
-        name: "Slowed + Reverb", 
-        color: "#64d2ff", 
-        category: "Internet Vibe", 
-        vibe: "Liminal Headspace", 
-        artists: ["Joji", "The Weeknd", "Mareux", "Past Lives edits", "Mr. Kitty", "Cigarettes After Sex", "Beach House", "Eyedress", "Crystal Castles", "Current Joys"],
-        desc: "Pitched-down, space-drenched songs creating a dreamy late-night emotional vibe." 
-      },
-      { 
-        name: "Amapiano", 
-        color: "#ffcc00", 
-        category: "Global Club", 
-        vibe: "Log Drum Bass", 
-        artists: ["Uncle Waffles", "Kabza De Small", "DJ Maphorisa", "Focalistic", "Tyler ICU", "Musa Keys", "Young Stunna", "DBN Gogo", "Major League DJz", "Daliwonga"],
-        desc: "South African house hybrid of deep synths, soulful jazz chords, and wooden log drums." 
-      },
-      { 
-        name: "Breakcore", 
-        color: "#ff2d55", 
-        category: "Digital & Glitch", 
-        vibe: "Frenetic • 180 BPM", 
-        artists: ["Sewerslvt", "Vertigoaway", "Machine Girl", "Goreshit", "Rory", "Nedaj", "Venetian Snares", "TOKYOPILL", "bye2", "Loli in early 20s"],
-        desc: "Manic chopped Amen drum breaks colliding with anime soundbites and ambient pads." 
-      },
-      { 
-        name: "Corridos Sad", 
-        color: "#00e5ff", 
-        category: "Global Waves", 
-        vibe: "Acoustic Sierreño", 
-        artists: ["Ivan Cornejo", "Eslabon Armado", "Junior H", "Peso Pluma", "DannyLux", "Yahritza y Su Esencia", "Fuerza Regida", "Marca MP", "Grupo Frontera", "Xavi"],
-        desc: "Slow, melancholic 12-string guitar ballads exploring heartbreak through youth Latin perspectives." 
-      },
-      { 
-        name: "Krushclub", 
-        color: "#10b981", 
-        category: "Rage & Rap", 
-        vibe: "Fast Nightcore", 
-        artists: ["Odetari", "Lumi Athena", "Asteria", "Cade Clair", "Jnhygs", "6arelyhuman", "SyKo", "kets4eki", "asteria", "stardriver"],
-        desc: "Fast-paced cross between Jersey club kicks, nightcore hooks, and abrasive rage synths." 
-      },
-      { 
-        name: "Deftones-Core", 
-        color: "#af52de", 
-        category: "Rock & Guitar", 
-        vibe: "Alt-Metal Wave", 
-        artists: ["Fleshwater", "Loathe", "Moodring", "Narrow Head", "Soul Blind", "Static Dress", "Thornhill", "Teenage Wrist", "Superheaven", "Bleed"],
-        desc: "Drop-tuned heavy riffs meeting ethereal whispering vocals and 90s grunge bridges." 
-      },
-      { 
-        name: "Sad Girl Indie", 
-        color: "#ffbe0b", 
-        category: "Indie & Alt", 
-        vibe: "Poetic & Stripped", 
-        artists: ["Phoebe Bridgers", "boygenius", "Gracie Abrams", "Lucy Dacus", "Julien Baker", "Lizzy McAlpine", "Maya Hawke", "Mitski", "Soccer Mommy", "Faye Webster"],
-        desc: "Confessional, poetic indie folk built around acoustic guitars and raw vocal storytelling." 
-      },
-      { 
-        name: "Jersey Club", 
-        color: "#ff007f", 
-        category: "Phonk & Dance", 
-        vibe: "5-Beat Bounce", 
-        artists: ["Bandmanrill", "Lil Uzi Vert", "Cookiee Kawaii", "UNIIQU3", "DJ Sliink", "DJ Jayhood", "DJ Tameil", "TrippyTurtle", "Coi Leray", "Ice Spice"],
-        desc: "Syncopated five-beat kick pattern accented by vocal chops, squeaks, and rapid rhythms." 
-      },
-      { 
-        name: "Fast Techno", 
-        color: "#00f5d4", 
-        category: "Phonk & Dance", 
-        vibe: "155 BPM Rave", 
-        artists: ["Creeds", "Sara Landry", "Nico Moreno", "Klangkuenstler", "Indira Paganotto", "Alignment", "I Hate Models", "999999999", "Charlie Sparks", "TRYM"],
-        desc: "Hard techno and schranz kicks paired with energetic melodic pop hooks." 
-      },
-      { 
-        name: "Modern Bossa", 
-        color: "#4cc9f0", 
-        category: "Indie & Alt", 
-        vibe: "Jazz Bedroom Pop", 
-        artists: ["Laufey", "Bruno Major", "Eloise", "Stacey Ryan", "grentperez", "Joy Crookes", "Lizzy McAlpine", "Norah Jones", "Maya Delilah", "Arlo Parks"],
-        desc: "Brazilian Bossa Nova chords and vintage big-band style with modern youth lyricism." 
-      },
-      { 
-        name: "5th Gen K-Pop", 
-        color: "#fb5607", 
-        category: "Global Waves", 
-        vibe: "Liquid DnB Pop", 
-        artists: ["NewJeans", "ILLIT", "LE SSERAFIM", "aespa", "RIIZE", "BABYMONSTER", "KISS OF LIFE", "TWS", "BOYNEXTDOOR", "NMIXX"],
-        desc: "K-pop embracing early 2000s liquid drum & bass breaks and breezy vocal delivery." 
-      },
-      { 
-        name: "Dariacore", 
-        color: "#8338ec", 
-        category: "Digital & Glitch", 
-        vibe: "Meme Chop Chaos", 
-        artists: ["leroy", "Jane Remover", "c2star", "trustedblust", "d0llywood1", "lieu", "recovery girl", "meat computer", "STARKIDS", "underscores"],
-        desc: "High-speed Jersey breakbeats layered with rapid 2000s pop and internet meme samples." 
-      }
+    // FULL 100 GEN Z MUSIC GENRES WITH TOP ARTISTS
+    const GENRES_100 = [
+      // 1. Digital, Glitch & Hyper-Electronic (1-15)
+      { name: "Hyperpop", color: "#00f0ff", category: "Digital & Glitch", vibe: "Maximalist Pop", artists: ["100 gecs", "SOPHIE", "Charli xcx", "Dorian Electra", "glaive", "ericdoa", "A. G. Cook", "Slayyyter", "Dylan Brady", "Danny L Harle"], desc: "Maximalist pop pushed into abrasive synthetic sound design, pitch-shifted vocals, and metallic bass drops." },
+      { name: "Digicore", color: "#30d158", category: "Digital & Glitch", vibe: "Discord-Native", artists: ["Jane Remover", "midwxst", "quinn", "dltzk", "saturn", "kuru", "pitfall", "angelus", "blackwinterwells", "funeral"], desc: "The bedroom-produced evolution of hyperpop rooted in Discord and Minecraft communities." },
+      { name: "Glitchcore", color: "#ff007f", category: "Digital & Glitch", vibe: "Audio Stutter", artists: ["David Shawty", "sebii", "LulPatchy", "wifiskeleton", "kid trash", "ryo", "scruffpuppie", "ovg", "hi-c", "st4r"], desc: "Hyperactive microgenre heavy on stutter edits, extreme bitcrushing, and vocal autotune spikes." },
+      { name: "Dariacore", color: "#a855f7", category: "Digital & Glitch", vibe: "Meme Breaks", artists: ["leroy", "Jane Remover", "c2star", "trustedblust", "d0llywood1", "lieu", "recovery girl", "meat computer", "STARKIDS", "underscores"], desc: "Chaotic microgenre built around rapid-fire early-2000s pop samples and Jersey breaks." },
+      { name: "HexD / Bitcrushed", color: "#64d2ff", category: "Digital & Glitch", vibe: "Lo-Fi Artifacts", artists: ["Surgeon", "yabujin", "Black Kray", "hi-c", "Cartier'GOD", "Reptilian Club Boyz", "Lucy", "Xavier", "Sikyo", "BMB"], desc: "Music deliberately compressed, pitched, and drenched in heavy bitcrush distortion." },
+      { name: "Nightcore 2.0", color: "#ff2d55", category: "Digital & Glitch", vibe: "Fast TikTok Edit", artists: ["S3RL", "Caramelldansen", "Rockefeller Street", "Nightcore Lab", "Syrex", "NCS Sped Up", "TikTok Remixes", "Speed Radio", "Sped Up 808", "Nightcore Nation"], desc: "Sped-up pop and electronic tracks engineered for viral short-form dance trends." },
+      { name: "Slowed + Reverb", color: "#00e5ff", category: "Internet Aesthetics", vibe: "Liminal Haze", artists: ["Joji", "The Weeknd", "Mareux", "Past Lives edits", "Mr. Kitty", "Cigarettes After Sex", "Beach House", "Eyedress", "Crystal Castles", "Current Joys"], desc: "Atmospheric, chopped-down edits creating a hazy, melancholic, liminal headspace." },
+      { name: "Bubblegum Bass", color: "#ff00a0", category: "Digital & Glitch", vibe: "Metallic Cute", artists: ["SOPHIE", "A. G. Cook", "GFOTY", "Hannah Diamond", "easyfun", "Kero Kero Bonito", "QT", "Namo", "felicita", "Danny L Harle"], desc: "Glossy, metallic, synthetic sound design fusing hyper-cute melodies with jarring industrial bass." },
+      { name: "Color Bass", color: "#00ff88", category: "Digital & Glitch", vibe: "Melodic Dubstep", artists: ["Chime", "Ace Aura", "Skybreak", "Oolacile", "Pixel Terror", "Au5", "Virtual Riot", "Sharks", "Voltra", "Papa Khan"], desc: "Melodic dubstep utilizing pitch-tracking and vocal resonators to turn heavy basslines into chords." },
+      { name: "Breakcore Revival", color: "#ff3b30", category: "Digital & Glitch", vibe: "180+ BPM Amen", artists: ["Sewerslvt", "Vertigoaway", "Machine Girl", "Goreshit", "Rory", "Nedaj", "Venetian Snares", "TOKYOPILL", "bye2", "Loli in early 20s"], desc: "Jungle/DnB drum breaks sped up to manic tempos, paired with anime samples and depressive pads." },
+      { name: "Deconstructed Club", color: "#e0e7ff", category: "Digital & Glitch", vibe: "Industrial Avant", artists: ["Arca", "Amnesia Scanner", "Lotic", "Toxe", "Total Freedom", "Rabit", "Sega Bodega", "Kelela", "Shygirl", "Eartheater"], desc: "Avant-garde dance music that tears apart traditional club rhythms into metallic clangs and sudden drops." },
+      { name: "Webcore Audio", color: "#38bdf8", category: "Internet Aesthetics", vibe: "Windows 98 Era", artists: ["Windows96", "Blank Banshee", "Nmesh", "Saint Pepsi", "Master Boot Record", "Chuck Person", "luxury elite", "骨架的", "Vektroid", "猫 シ Corp."], desc: "Sonic nostalgia for early 2000s dial-up tones, error soundbites, and flash games." },
+      { name: "Hardvapour", color: "#f97316", category: "Internet Aesthetics", vibe: "Eastern Cyber", artists: ["wosX", "HKE", "Sandtimer", "Flash Hardvapour", "DJ Alina", "Subaeris", "Wolfenstein OS", "Kagami Smile", "CyberSurfer3D", "2814"], desc: "A high-tempo response to vaporwave, swapping lounge for dark synths and gabber kicks." },
+      { name: "Mallsoft", color: "#a78bfa", category: "Internet Aesthetics", vibe: "Empty Shopping Mall", artists: ["Disconscious", "Groceries", "Cat System Corp", " 식료품groceries", "Hantasi", "Vaporwave Mall", "Palm Mall", "Lindsheaven Virtual Plaza", "Corporate Mixtape", "Cosmic Cycler"], desc: "Ambient subgenre simulating the reverberant acoustics of abandoned shopping malls." },
+      { name: "Barber Beats", color: "#facc15", category: "Internet Aesthetics", vibe: "Vinyl Lounge", artists: ["Macroblank", "Haircuts for Men", "Romance", "GODSPEED Sonic", "Monodrone", "Modest by Default", "Oblique Occasions", "DARKPYRAMID", "MindSpring", "Fuji Grid TV"], desc: "Lounge-jazz, trip-hop, and downtempo evolution of vaporwave with smooth, filtered beats." },
+
+      // 2. Modern Hip-Hop, Rage & Underground Rap (16-30)
+      { name: "Rage Rap", color: "#00ff88", category: "Rage & Rap", vibe: "Moshpit • 145 BPM", artists: ["Playboi Carti", "Yeat", "Ken Carson", "Destroy Lonely", "Trippie Redd", "Homixide Gang", "SoFaygo", "Lancey Foux", "Hardrock", "UnoTheActivist"], desc: "High-energy trap defined by blown-out, buzzing EDM synths and aggressive moshpit 808s." },
+      { name: "Plugg", color: "#f59e0b", category: "Rage & Rap", vibe: "Minimal 808s", artists: ["MexikoDro", "Diego Money", "Playboi Carti (early)", "Rich Po Slim", "Tony Shhnow", "10kdunkin", "BoogzBoogetz", "Cashcache", "StoopidXool", "Polo Boy Shawty"], desc: "Minimalist trap with melodic synth keys, sparse 808s, and off-beat percussion." },
+      { name: "PluggnB", color: "#fb923c", category: "Rage & Rap", vibe: "Smooth 808s", artists: ["Autumn!", "Summrs", "Kankan", "SSGKobe", "Goyxrd", "Izaya Tiji", "Rich Amiri", "Kaash Paige", "iayze", "BabySantana"], desc: "A fusion of plugg production with smooth, emotive 2000s R&B vocal melodies." },
+      { name: "Emo Rap", color: "#ec4899", category: "Rage & Rap", vibe: "Sad Guitar Trap", artists: ["Juice WRLD", "Lil Peep", "XXXTENTACION", "Trippie Redd", "Lil Tracy", "iann dior", "POORSTACY", "nothing,nowhere.", "Convolk", "Guccihighwaters"], desc: "Trap beats combined with melancholic indie guitar loops and confessional lyrics." },
+      { name: "Dark Plugg", color: "#475569", category: "Rage & Rap", vibe: "Ominous Tread", artists: ["Working on Dying", "Bootychaaain", "Evilgiane", "Surf Gang", "Polo Perks", "Five The Juggler", "Grim Brxzy", "Sickboyrari", "Goth Money", "CHXPO"], desc: "Ominous, bass-heavy, rapid-fire hi-hat trap with sinister sound design." },
+      { name: "Drain Cloud Rap", color: "#38bdf8", category: "Rage & Rap", vibe: "Icy Autotune", artists: ["Bladee", "Yung Lean", "Ecco2k", "Thaiboy Digital", "Whitearmor", "Yung Sherman", "Gud", "Black Kray", "Sickboyrari", "Yung Bans"], desc: "Ethereal, icy, reverb-soaked auto-tuned rap with high-fashion internet symbolism." },
+      { name: "Sample Drill", color: "#e11d48", category: "Rage & Rap", vibe: "Soul & Pop Flips", artists: ["Shawny Binladen", "B-Lovee", "Cash Cobain", "Chow Lee", "Big Yaya", "Four50", "Yung Manny", "DThang", "Kay Flock", "Dougie B"], desc: "Blending drill 808 glides with sped-up pop, soul, and R&B sample chops." },
+      { name: "Bronx Drill", color: "#ef4444", category: "Rage & Rap", vibe: "Fast Aggressive", artists: ["Kay Flock", "Ice Spice", "Dougie B", "DThang", "Sha EK", "Blockwork", "Edot Baby", "Kenzo B", "TG Crippy", "Sugarhill Ddot"], desc: "Aggressive, high-BPM drill utilizing sample flips and rapid, confrontational deliveries." },
+      { name: "UK Drill", color: "#64748b", category: "Rage & Rap", vibe: "Sliding 808s", artists: ["Central Cee", "Headie One", "Digga D", "Russ Millions", "Unknown T", "Loski", "K-Trap", "Abra Cadabra", "M24", "OFB"], desc: "Sliding 808s, syncopated triplets, and dark string loops that became a global template." },
+      { name: "New Jerk Rap", color: "#facc15", category: "Rage & Rap", vibe: "Bouncy Jerk", artists: ["xaviersobased", "Nettspend", "kynlary", "Juggstar", "Tenkay", "Stunmic", "Slimesito", "Evilgiane", "Surf Gang", "Hi-C"], desc: "A 2020s revival of late-2000s jerk music with blown-out bass and loose syncopation." },
+      { name: "Krushclub", color: "#10b981", category: "Rage & Rap", vibe: "Fast Nightcore", artists: ["Odetari", "Lumi Athena", "Asteria", "Cade Clair", "Jnhygs", "6arelyhuman", "SyKo", "kets4eki", "asteria", "stardriver"], desc: "High-speed blend of nightcore, rage synth leads, jersey club kicks, and vocal chops." },
+      { name: "Sigilkore", color: "#8b5cf6", category: "Digital & Glitch", vibe: "Occult Bitcrush", artists: ["Luci4", "Axxturel", "marrgrey", "vampmux", "slikkslash", "jewelxxet", "damp", "bavier", "sussybaka", "shun"], desc: "Dark, internet-occult rap combining hyperpop distortion with video game sound effects." },
+      { name: "Vamp Rap (Opium)", color: "#18181b", category: "Rage & Rap", vibe: "Industrial Gothic", artists: ["Destroy Lonely", "Ken Carson", "Homixide Gang", "Playboi Carti", "Hardrock", "F1lthy", "Gab3", "Lucian", "Bakar", "Lil Uzi Vert"], desc: "Industrial, gothic trap rooted in dystopian aesthetics and heavy distortion." },
+      { name: "Meme Rap", color: "#eab308", category: "Rage & Rap", vibe: "Irony Trap", artists: ["bbno$", "Yung Gravy", "Shotgun Willy", "Oliver Tree", "Rich Brian", "Pink Guy", "Lil Nas X", "dbangz", "Danny Gonzalez", "Tiny Meat Gang"], desc: "Self-aware, comedic hip-hop built for virality and witty punchlines." },
+      { name: "Hyperrap", color: "#06b6d4", category: "Rage & Rap", vibe: "Cyber Industrial", artists: ["Lil Darkie", "BVDLVD", "Ghostemane", "Jasiah", "City Morgue", "ZillaKami", "Scarlxrd", "Nascar Aloe", "Killy", "Pranav.Wav"], desc: "Fast, noisy rap delivered over distorted electro-industrial and glitch beats." },
+
+      // 3. Phonk, Hard Dance & Fast-Tempo Club (31-43)
+      { name: "Drift Phonk", color: "#ff0055", category: "Phonk & Dance", vibe: "Cowbell • 160 BPM", artists: ["Kordhell", "DVRST", "Hensonn", "Pharmacist", "Ghostface Playa", "SXID", "INTERWORLD", "Twisted", "cowbell cult", "Playaphonk"], desc: "Cowbell melodies, heavy Memphis rap samples, and distorted 808s made famous by drift clips." },
+      { name: "Brazilian Phonk", color: "#ffd60a", category: "Phonk & Dance", vibe: "Baile Bounce", artists: ["Phonkha", "Slowboy", "DJ FKU", "DJ Ramon Sucesso", "MC GW", "Crazy Mano", "MC Menor", "DJ NK da Serra", "DJ GBR", "Nito-Onna"], desc: "Merging the syncopation of Brazilian Baile Funk with aggressive drift phonk cowbells." },
+      { name: "Gym Phonk", color: "#ef4444", category: "Phonk & Dance", vibe: "Hardstyle 155 BPM", artists: ["Tevvez", "Hensonn", "YZX", "Sickick", "Mishashi Sensei", "GigaChad Theme", "Zyzz Music", "DXRK", "MoonDeity", "Prxsxnt Fxxture"], desc: "Phonk remixed with 150+ BPM hardstyle kicks for workout and bodybuilding aesthetics." },
+      { name: "Wave Phonk", color: "#06b6d4", category: "Phonk & Dance", vibe: "Atmospheric Reese", artists: ["Skeler", "Deadcrow", "Barnacle Boi", "Kareful", "Ytho", "Heimanu", "Sorsari", "Juche", "Loneliness", "Ktrek"], desc: "Slower, reverb-drenched phonk focused on atmospheric reese basses and melodic emotion." },
+      { name: "Funk Automotivo", color: "#84cc16", category: "Phonk & Dance", vibe: "Wall of Bass", artists: ["DJ Ramon Sucesso", "DJ Arana", "DJ Guh Mix", "MC GW", "DJ K", "DJ Topo", "DJ Jeeh FDC", "DJ Menor da 10", "DJ Blakes", "MC Pedrinho"], desc: "Extreme Brazilian sound-system culture featuring heavily distorted bass pulses." },
+      { name: "Rawstyle Gym EDM", color: "#f97316", category: "Phonk & Dance", vibe: "Reverse Bass", artists: ["Tevvez", "Sub Zero Project", "Rebelion", "Warface", "D-Sturb", "Rooler", "Sickmode", "Headhunterz", "Da Tweekaz", "Coone"], desc: "Euphoric melodies colliding with reverse-bass and piercing screeches for fitness creators." },
+      { name: "Jersey Club", color: "#ff007f", category: "Phonk & Dance", vibe: "5-Beat Bounce", artists: ["Bandmanrill", "Lil Uzi Vert", "Cookiee Kawaii", "UNIIQU3", "DJ Sliink", "DJ Jayhood", "DJ Tameil", "TrippyTurtle", "Coi Leray", "Ice Spice"], desc: "The signature five-beat triplet kick pattern with bed-squeak samples." },
+      { name: "UK Bassline", color: "#3b82f6", category: "Phonk & Dance", vibe: "4x4 Garage Sub", artists: ["Interplanetary Criminal", "MPH", "Sammy Virji", "Flava D", "Holy Goof", "Darkzy", "Skepsis", "TS7", "Notion", "Bru-C"], desc: "Bouncing, heavy-sub electronic tracks bridging garage swing and aggressive rave energy." },
+      { name: "Speed Garage Revival", color: "#14b8a6", category: "Phonk & Dance", vibe: "138 BPM Swing", artists: ["Sammy Virji", "Conducta", "Salute", "Main Phase", "Dr Banana", "Oppidan", "Y U QT", "Bakey", "Soulecta", "bullet tooth"], desc: "135+ BPM swinging basslines, chopped diva vocals, and bouncy low-end." },
+      { name: "Hypertechno", color: "#00f5d4", category: "Phonk & Dance", vibe: "155 BPM Rave", artists: ["Creeds", "Sara Landry", "Nico Moreno", "Klangkuenstler", "Indira Paganotto", "Alignment", "I Hate Models", "999999999", "Charlie Sparks", "TRYM"], desc: "Melodic pop hooks layered over hard techno and schranz gabber kicks." },
+      { name: "Philly Club", color: "#f43f5e", category: "Phonk & Dance", vibe: "Fast Percussion", artists: ["DJ Diamond Kuts", "DJ Swisha", "K-Swift", "DJ Sega", "TT The Artist", "Uniiqu3", "Rico Nasty", "Bandmanrill", "DJ Jayhood", "Brenmar"], desc: "Sister genre to Jersey club, characterized by faster tempos and off-beat vocal chants." },
+      { name: "Donk House", color: "#eab308", category: "Phonk & Dance", vibe: "Rubbery Bass", artists: ["Blackout Crew", "DJ Bounce", "Put Your Hands Up", "Lobsta B", "DJ Cammy", "Alex K", "Klubbed", "DJ Kurt", "KB Project", "Bad Boy Chiller Crew"], desc: "Bouncy, pitched rubbery bass hits ('the donk') finding a home in ironic club edits." },
+      { name: "Future Rave", color: "#6366f1", category: "Phonk & Dance", vibe: "Festival Melodic", artists: ["David Guetta", "MORTEN", "Shapov", "Armin van Buuren", "Hardwell", "Sander van Doorn", "DubVision", "Tchami", "Malaa", "Oliver Heldens"], desc: "Festival sound bridging progressive house melodies with underground techno drive." },
+
+      // 4. Indie, Bedroom Pop & Alt Aesthetics (44-60)
+      { name: "Bedroom Pop", color: "#bf5af2", category: "Indie & Alt", vibe: "Tape Chorus Lo-Fi", artists: ["Clairo", "Beabadoobee", "Cavetown", "Cuco", "mxmtoon", "boy pablo", "girl in red", "Conan Gray", "Rex Orange County", "Arlo Parks"], desc: "Intimate, DIY-recorded songs featuring chorus guitars and soft vocals." },
+      { name: "Alt-Z", color: "#ec4899", category: "Indie & Alt", vibe: "Relatable Angst", artists: ["GAYLE", "Em Beihold", "Lauren Spencer Smith", "Nessa Barrett", "Bella Poarch", "Leah Kate", "Salem Ilese", "Jax", "Mae Stephens", "Chloe Adams"], desc: "Punchy, angst-ridden pop-rock driven by social anxiety and hyper-honest lyrics." },
+      { name: "Sad Girl Indie", color: "#ffbe0b", category: "Indie & Alt", vibe: "Folk Vulnerability", artists: ["Phoebe Bridgers", "boygenius", "Gracie Abrams", "Lucy Dacus", "Julien Baker", "Lizzy McAlpine", "Maya Hawke", "Mitski", "Soccer Mommy", "Faye Webster"], desc: "Introspective, lyric-heavy folk/indie with stripped-down guitars." },
+      { name: "Lo-Fi Bedroom R&B", color: "#f97316", category: "Indie & Alt", vibe: "Warm Neo-Soul", artists: ["Steve Lacy", "Omar Apollo", "Umi", "Ravyn Lenae", "Choker", "Raveena", "Dominic Fike", "Mac Ayres", "Cautious Clay", "RINI"], desc: "Warm, tape-saturated soul with neo-soul chord progressions and minimalist grooves." },
+      { name: "Indie Poptimism", color: "#22c55e", category: "Indie & Alt", vibe: "Vibrant Grooves", artists: ["Remi Wolf", "Bleachers", "Still Woozy", "BENEE", "Peach Pit", "Wallows", "The Marias", "Dayglow", "Hippo Campus", "Coin"], desc: "Playful, colorful indie pop celebrating funky basslines and vibrant production." },
+      { name: "Dark Pop", color: "#0f172a", category: "Indie & Alt", vibe: "Menacing Whisper", artists: ["Billie Eilish", "Sub Urban", "FINNEAS", "Melanie Martinez", "Lorde (Pure Heroine)", "Bishop Briggs", "Banks", "AURORA", "Sevdaliza", "Two Feet"], desc: "Minor-key, cinematic pop driven by whispering vocal layers and menacing sub-bass." },
+      { name: "Glitch Pop", color: "#06b6d4", category: "Indie & Alt", vibe: "Organic Glitch", artists: ["Brakence", "Aries", "aldn", "eden", "50landing", "keshi (early)", "midwxst", "dla", "heylog", "guardin"], desc: "Organic singer-songwriter music and guitars spliced with digital glitches and pitch jumps." },
+      { name: "Scenecore", color: "#ff007f", category: "Indie & Alt", vibe: "Cyber-Emo Myspace", artists: ["rebzyyx", "hoshie star", "ronin", "s3rl", "kets4eki", "asteria", "6arelyhuman", "syris", "lumi athena", "vampireblood"], desc: "2000s myspace emo culture fused with hyperpop synthesizers and scream-singing." },
+      { name: "Indie Folk-Punk", color: "#854d0e", category: "Indie & Alt", vibe: "Acoustic Screaming", artists: ["Pigeon Pit", "The Front Bottoms", "Modern Baseball", "McCafferty", "Days N Daze", "AJJ", "Crywank", "Jeff Rosenstock", "Defiance Ohio", "Harley Poe"], desc: "Acoustic guitars strummed aggressively with raw, strained community sing-alongs." },
+      { name: "Ambient Dream Folk", color: "#93c5fd", category: "Indie & Alt", vibe: "Southern Gothic", artists: ["Ethel Cain", "Nicole Dollanganger", "Grouper", "Julianna Barwick", "Midwife", "Weyes Blood", "Tamaryn", "Widowspeak", "Tiny Vipers", "Fog Lake"], desc: "Hazy, reverb-soaked slow-burn storytelling with vintage Southern gothic influences." },
+      { name: "Slowcore Revival", color: "#64748b", category: "Indie & Alt", vibe: "Minimal Bleak", artists: ["Duster", "sign crushes motorist", "Salvia Palth", "Have a Nice Life", "Carissa's Wierd", "Bedhead", "Low", "Codeine", "Take Care", "Birth Day"], desc: "Sluggish tempos, minimalist chords, and sparse arrangements found via TikTok moodboards." },
+      { name: "Chillhop / Lo-Fi", color: "#f59e0b", category: "Internet Aesthetics", vibe: "Study Beats", artists: ["Lofi Girl", "Kowloon", "ChilledCow", "Kupla", "Jinsang", "Nujabes (legacy)", " idealism", "potsu", "Saib", "SwuM"], desc: "Instrumental hip-hop with vinyl crackle and jazz loops soundtracking focus sessions." },
+      { name: "Indie Surf-Gaze", color: "#0284c7", category: "Indie & Alt", vibe: "Upbeat Reverb", artists: ["Surf Curse", "Current Joys", "Beach Fossils", "The Drums", "DIIV", "Wild Nothing", "Craft Spells", "Real Estate", "Alvvays", "Mac DeMarco"], desc: "Upbeat surf-rock drumbeats buried beneath fuzzy, melancholic shoegaze guitars." },
+      { name: "Slacker Rock", color: "#a3e635", category: "Indie & Alt", vibe: "Tape Warped Chill", artists: ["Alex G", "Beabadoobee", "Snail Mail", "Soccer Mommy", "Pinegrove", "Hovvdy", "Vundabar", "Momma", "MJ Lenderman", "Feeble Little Horse"], desc: "Detuned, tape-warped guitars with deadpan, understated vocal performances." },
+      { name: "5th Wave Emo", color: "#a855f7", category: "Indie & Alt", vibe: "Math MIDI Emo", artists: ["Glass Beach", "Origami Angel", "Home Is Where", "Weatherday", "Your Arms Are My Cocoon", "Oso Oso", "Pool Kids", "awakebutstillinbed", "Hot Mulligan", "Palette Knife"], desc: "DIY emo characterized by extreme genre-crossing with math rock and MIDI synth sequencing." },
+      { name: "Modern Bossa", color: "#38bdf8", category: "Indie & Alt", vibe: "Jazz Bedroom Pop", artists: ["Laufey", "Bruno Major", "Eloise", "Stacey Ryan", "grentperez", "Joy Crookes", "Lizzy McAlpine", "Norah Jones", "Maya Delilah", "Arlo Parks"], desc: "Brazilian Bossa Nova chords and big-band arrangement blended with youth lyricism." },
+      { name: "Chamber Pop", color: "#c084fc", category: "Indie & Alt", vibe: "Orchestral Lush", artists: ["Weyes Blood", "Father John Misty", "Angel Olsen", "Perfume Genius", "Rufus Wainwright", "Julia Holter", "Caroline Polachek", "Moses Sumney", "Spellling", "Natalie Mering"], desc: "Ornate, orchestral pop incorporating strings, harpsichords, and lush harmonies." },
+
+      // 5. Rock, Punk, Metal & Guitar Revivals (61-75)
+      { name: "Y2K Pop-Punk", color: "#f43f5e", category: "Rock & Guitar", vibe: "Power Chords", artists: ["Machine Gun Kelly", "Olivia Rodrigo", "WILLOW", "YUNGBLUD", "Travis Barker", "jxdn", "KennyHoopla", "Mod Sun", "Meet Me @ The Altar", "LØLØ"], desc: "Driving power chords, nasal vocal hooks, and trap-influenced drum fills." },
+      { name: "Nu-Gaze", color: "#da8fff", category: "Rock & Guitar", vibe: "Fuzz Pedals", artists: ["Wisp", "Julie", "Narrow Head", "Hotline TNT", "DIIV", "Wednesday", "glare", "TAGABOW", "Kraus", "They Are Gutting"], desc: "Heavy walls of guitar fuzz, drop-tunings, and ethereal female vocals." },
+      { name: "Doomer Post-Punk", color: "#475569", category: "Rock & Guitar", vibe: "Sovietwave Dark", artists: ["Molchat Doma", "Nürnberg", "Ploho", "Buerak", "Kino (legacy)", "Utro", "Chernikovskaya Hata", "Motorama", "Superbesse", "Human Tetris"], desc: "Cold synthesizer arpeggios, driving drum machines, and baritone vocals exploring isolation." },
+      { name: "Deftones-Core", color: "#af52de", category: "Rock & Guitar", vibe: "Alt-Metal Groove", artists: ["Fleshwater", "Loathe", "Moodring", "Narrow Head", "Soul Blind", "Static Dress", "Thornhill", "Teenage Wrist", "Superheaven", "Bleed"], desc: "Dropped guitar tunings, heavy groove riffs, and dreamy whispering-to-screaming vocals." },
+      { name: "Indie Sleaze 2.0", color: "#ec4899", category: "Rock & Guitar", vibe: "Electroclash Punk", artists: ["The Dare", "Frost Children", "The Hellp", "Geese", "Model/Actriz", "Fcukers", "Two Shell", "Cobrah", "Snow Strippers", "Sega Bodega"], desc: "Grungy, debaucherous, 2000s-style dance-punk with dirty basslines." },
+      { name: "Egg Punk", color: "#eab308", category: "Rock & Guitar", vibe: "Spastic Lo-Fi", artists: ["Snõõper", "Gee Tee", "The Coneheads", "Prison Affair", "Research Reactor Corp", "Lumpy and the Dumpers", "Tee Vee Repairmann", "Uranium Club", "CCTV", "Warm Bodies"], desc: "Lo-fi, hyperactive punk rock driven by synthesizers and cassette tape saturation." },
+      { name: "Modern Math Rock", color: "#10b981", category: "Rock & Guitar", vibe: "Finger Tapping", artists: ["Polyphia", "Covet", "Yvette Young", "Chon", "Toe", "Elephant Gym", "Delta Sleep", "Tiny Moving Parts", "standards", "Ichika Nito"], desc: "Finger-tapped, hyper-melodic guitar instrumentals driven by trap beats." },
+      { name: "Hardcore Crossover", color: "#dc2626", category: "Rock & Guitar", vibe: "Festival Beatdown", artists: ["Turnstile", "Knock Loose", "Scowl", "Drain", "Militarie Gun", "Gel", "Sunami", "Soul Glo", "Speed", "Zulu"], desc: "Modern hardcore punk incorporating heavy grooves and festival mosh appeal." },
+      { name: "Darkwave Revival", color: "#7c3aed", category: "Rock & Guitar", vibe: "Goth Synthwave", artists: ["Boy Harsher", "Twin Tribes", "Lebanon Hanover", "She Past Away", "Drab Majesty", "Linea Aspera", "Selofan", "Kaelan Mikla", "Cold Cave", "Tempers"], desc: "Goth-club rhythms with pulsing analog synths and shadowy vocal hooks." },
+      { name: "Hyperpunk", color: "#06b6d4", category: "Rock & Guitar", vibe: "Digital Screamo", artists: ["Nova Twins", "Meet Me @ The Altar", "Bob Vylan", "Magnolia Park", "Pinkshift", "Delilah Bon", "Bilk", "The OBGMs", "Vukovi", "Wargasm"], desc: "Fast punk energy produced with digital distortion, synthetic drums, and electronic sound design." },
+      { name: "Crunkcore Revival", color: "#f43f5e", category: "Rock & Guitar", vibe: "2008 Screamo Dance", artists: ["6arelyhuman", "Siiickbrain", "Scene Queen", "LUM!X", "BrokeNCYDE (legacy)", "Dot Dot Curve", "Millionaires", "Ghost Town", "Rebzyyx", "Kets4eki"], desc: "A modern reimagining of 2008 electronic screamo party club music." },
+      { name: "Midwest Math-Rap", color: "#f59e0b", category: "Rock & Guitar", vibe: "Twinkly Riffs Spoken", artists: ["Hobo Johnson", "Tiny Moving Parts", "La Dispute", "Hotel Books", "Listener", "mewithoutYou", "Modern Baseball", "The World Is a Beautiful Place", "Foxing", "Free Throw"], desc: "Twinkly, open-tuned guitar riffs underpinning emotional spoken-word deliveries." },
+      { name: "Kawaii Metal", color: "#ff007f", category: "Rock & Guitar", vibe: "J-Pop Metalcore", artists: ["BABYMETAL", "Hanabie", "PassCode", "Ladybaby", "Necronomidol", "FruitPochette", "Ironbunny", "Broken By The Scream", "Deadlift Lolita", "Band-Maid"], desc: "J-pop melodies and idol aesthetics merged with heavy metal breakdowns." },
+      { name: "Drone Folk", color: "#78716c", category: "Rock & Guitar", vibe: "Goth Americana", artists: ["Chelsea Wolfe", "Emma Ruth Rundle", "King Dude", "Marissa Nadler", "A.A. Williams", "Lingua Ignota", "Lankum", "Darkher", "Horseback", "Timber Timbre"], desc: "Dark acoustic storytelling soaked in drone tones and ritualistic percussion." },
+      { name: "Nu-Metalcore", color: "#b91c1c", category: "Rock & Guitar", vibe: "Turntable Breakdowns", artists: ["Bad Omens", "Spiritbox", "Tallah", "Alpha Wolf", "Loathe", "Void of Vision", "Tetrarch", "Ocean Grove", "Graphic Nature", "Dealer"], desc: "Modern metalcore incorporating early 2000s turntablism and hip-hop cadences." },
+
+      // 6. Global Internet Hybrids & Regional Waves (76-90)
+      { name: "Amapiano", color: "#ffcc00", category: "Global Waves", vibe: "Log Drum Groove", artists: ["Uncle Waffles", "Kabza De Small", "DJ Maphorisa", "Focalistic", "Tyler ICU", "Musa Keys", "Young Stunna", "DBN Gogo", "Major League DJz", "Daliwonga"], desc: "South African house subgenre with deep basslines and rattling log drum percussion." },
+      { name: "Afropiano", color: "#f59e0b", category: "Global Waves", vibe: "Afrobeats Log Drums", artists: ["Asake", "Burna Boy", "Rema", "Davido", "Fireboy DML", "Kizz Daniel", "Seyi Vibez", "BNXN", "Victony", "Shallipopi"], desc: "West African Afrobeats vocal melodies riding South African Amapiano log drums." },
+      { name: "Corridos Tumbados", color: "#10b981", category: "Global Waves", vibe: "Brass Horn Trap", artists: ["Peso Pluma", "Natanael Cano", "Junior H", "Fuerza Regida", "Gabito Ballesteros", "Xavi", "Oscar Maydon", "Chino Pacas", "Luis R Conriquez", "Tito Double P"], desc: "Traditional Mexican corrido instruments (requinto, brass) fused with trap 808s." },
+      { name: "Neo-Perreo", color: "#ff007f", category: "Global Waves", vibe: "Industrial Reggaeton", artists: ["Isabella Lovestory", "Ms Nina", "Bad Gyal", "Tomasa del Real", "Taichu", "Safety Trance", "DJ Python", "Arca", "Six Sex", "La Zowi"], desc: "Underground, post-industrial mutation of classic reggaeton rhythms." },
+      { name: "Funk Mandelão", color: "#06b6d4", category: "Global Waves", vibe: "Metallic Favela", artists: ["DJ Arana", "DJ Ramon Sucesso", "DJ Blakes", "DJ GBR", "DJ K", "MC Pedrinho", "MC Ryan SP", "MC Hariel", "DJ Jeeh FDC", "DJ Topo"], desc: "A repetitive, hypnotic, metallic strain of São Paulo funk designed for street parties." },
+      { name: "Budots Revival", color: "#facc15", category: "Global Waves", vibe: "Freestyle Sirens", artists: ["DJ Love", "Shernan", "Budots King", "DJ Ian", "Camiguin Boys", "Pinoy EDM", "Davao Beats", "Tiktok Budots", "DJ Jom", "DJ Daryll"], desc: "Philippine electronic dance music featuring chaotic horn stabs and siren whistles." },
+      { name: "Baile Funk Drill", color: "#ef4444", category: "Global Waves", vibe: "Drill Favela", artists: ["DJ Guh Mix", "MC Lan", "Kyan", "Fleezus", "Tasha & Tracie", "Major RD", "Mu540", "DJ Biel do Anil", "MC Cabelinho", "KayBlack"], desc: "Melding sliding sub-bass of drill with Brazilian favela funk rhythm loops." },
+      { name: "Alté", color: "#ec4899", category: "Global Waves", vibe: "Nigerian Alternative", artists: ["Odunsi (The Engine)", "Santi", "Lady Donli", "Tems", "Amaarae", "BOJ", "DRB LasGidi", "Tay Iwar", "Wavy The Creator", "Cruel Santino"], desc: "Nigerian alternative scene blending Afrobeats, dancehall, and indie pop." },
+      { name: "Sad Sierreño", color: "#00e5ff", category: "Global Waves", vibe: "12-String Acoustic", artists: ["Ivan Cornejo", "Eslabon Armado", "DannyLux", "Yahritza", "Marca MP", "Grupo Frontera", "Junior H", "Cuco", "Kevin Kaarl", "Ed Maverick"], desc: "Melancholic acoustic guitar duos with mournful teen ballads over trap tempos." },
+      { name: "5th Gen K-Pop", color: "#fb5607", category: "Global Waves", vibe: "Liquid DnB Pop", artists: ["NewJeans", "ILLIT", "LE SSERAFIM", "aespa", "RIIZE", "BABYMONSTER", "KISS OF LIFE", "TWS", "BOYNEXTDOOR", "NMIXX"], desc: "Stripped-down early 2000s liquid drum & bass and UK garage infused into K-pop." },
+      { name: "Punjabi Drill", color: "#14b8a6", category: "Global Waves", vibe: "Dhol Drum Drill", artists: ["Shubh", "AP Dhillon", "Karan Aujla", "Sidhu Moose Wala (legacy)", "Gurinder Gill", "Diljit Dosanjh", "Jerry", "Tegi Pannu", "Wazir Patar", "Sukha"], desc: "Traditional Punjabi folk instruments layered onto aggressive drill productions." },
+      { name: "Future Funk", color: "#f43f5e", category: "Global Waves", vibe: "City Pop Remix", artists: ["Yung Bae", "Macross 82-99", "Night Tempo", "Desired", "Moe Shop", "Vantage", "Saint Pepsi", "Android Apartment", "Tanuki", "FIBRE"], desc: "1980s Japanese disco sampled and remixed into upbeat, danceable house." },
+      { name: "Mahraganat", color: "#eab308", category: "Global Waves", vibe: "Electro Shaabi", artists: ["Hassan Shakosh", "Omar Kamal", "Hamo Bika", "Wegz", "Marwan Pablo", "Marwan Moussa", "Afroto", "El Sawareekh", "Oka Wi Ortega", "Islam Chipsy"], desc: "Egyptian folk rhythm overlaid with auto-tuned rapping and synthesizers." },
+      { name: "Reggaeton Romántico", color: "#c084fc", category: "Global Waves", vibe: "Late-Night Vibes", artists: ["Rauw Alejandro", "Mora", "Feid", "Alvaro Diaz", "Tainy", "Quevedo", "Manuel Turizo", "Sech", "Jay Wheeler", "Jhayco"], desc: "Ambient, melancholic, low-tempo Latin urban music meant for late-night listening." },
+      { name: "French Afro-Trap", color: "#3b82f6", category: "Global Waves", vibe: "Afro Beats Rap", artists: ["MHD", "Naza", "Keblack", "Gradur", "Dadju", "Tayc", "Aya Nakamura", "Gazo", "Tiakola", "Franglish"], desc: "African percussion arrangements blended with French trap cadence and melodic flows." },
+
+      // 7. Niche Internet Micro-Movements & Aesthetic Waves (91-100)
+      { name: "Dreampunk", color: "#818cf8", category: "Internet Aesthetics", vibe: "Cyberpunk Rain", artists: ["2814", "HKE", "Telepath", "t e l e p a t h テレパシー能力者", "Remember", "Sangam", "Subaeris", "Viper", "Hong Kong Express", "Rashida Prime"], desc: "Cinematic, rainy-night ambient soundscapes built on pitch-bent synth pads." },
+      { name: "Dungeon Synth", color: "#65a30d", category: "Internet Aesthetics", vibe: "Lo-Fi Fantasy RPG", artists: ["Hole Dweller", "Morten Art", "Depressive Silence", "Old Tower", "Erang", "Fief", "Secret Stairways", "Quest Master", "Thangorodrim", "Gargoyle"], desc: "Lo-fi electronic music simulating fantasy RPG soundtracks and retro gaming lore." },
+      { name: "Weirdcore Pop", color: "#e879f9", category: "Internet Aesthetics", vibe: "Liminal Childhood", artists: ["Jack Stauber", "Bo En", "Kikuo", "Oliver Buckland", "In Love With A Ghost", "Bill Wurtz", "The Caretaker", "Vundabar", "Graham Kartna", "Nelward"], desc: "Surreal pop songs using detached child-like delivery and vintage keyboards." },
+      { name: "Vapor Twitch", color: "#06b6d4", category: "Internet Aesthetics", vibe: "Granular Chops", artists: ["Flume", "Quiet Bison", "DROELOE", "San Holo", "Medasin", "Kasbo", "Petit Biscuit", "What So Not", "Ford.", "Inzo"], desc: "Granular synthesis, micro-chops, and off-grid experimental electronic grooves." },
+      { name: "Hypnagogic Pop", color: "#f9a8d4", category: "Internet Aesthetics", vibe: "Faded Radio Tape", artists: ["Ariel Pink", "John Maus", "James Ferraro", "Ducktails", "The Skaters", "Panda Bear", "Sun Araw", "Oneohtrix Point Never", "Toro y Moi", "Neon Indian"], desc: "Nostalgic lo-fi music attempting to recreate radio memories through tape hiss." },
+      { name: "Darksynth", color: "#ef4444", category: "Internet Aesthetics", vibe: "Horror Cyberpunk", artists: ["Carpenter Brut", "Perturbator", "Dance With the Dead", "GosT", "Mega Drive", "Dan Terminus", "Lorn", "Master Boot Record", "Vector Seven", "Gunship"], desc: "Heavy electronic rock incorporating horror-movie synths and dystopian basslines." },
+      { name: "Kawaii Future Bass", color: "#f472b6", category: "Internet Aesthetics", vibe: "Chiptune Video Game", artists: ["Snail's House", "Yunomi", "Moe Shop", "Fusq", "Kitsune", "Wave Racer", "Hyper Potions", "Shawn Wasabi", "Subtact", "In Love With A Ghost"], desc: "Melodic future bass packed with high-pitched vocal chops and chiptune effects." },
+      { name: "Tearout Dubstep", color: "#f97316", category: "Phonk & Dance", vibe: "Machine Gun Bass", artists: ["Marauda", "Nimda", "SVDDEN DEATH", "Kompany", "Samplifire", "Automhate", "Hukae", "Perry Wayne", "Vastive", "DVEIGHT"], desc: "Ultra-aggressive, machine-gun bass dubstep dominating viral rave clips." },
+      { name: "Neoclassical Dark", color: "#94a3b8", category: "Rock & Guitar", vibe: "Gothic Orchestral", artists: ["Dead Can Dance", "Autumn's Grey Solace", "Ataraxia", "Dargaard", "Arcana", "Elend", "Sopor Aeternus", "Dark Sanctuary", "Stoa", "Rosa Crux"], desc: "Melancholy orchestral arrangements and cellos blended with subtle electronic beats." },
+      { name: "A.I. Hybrid Pop", color: "#a855f7", category: "Digital & Glitch", vibe: "Montage Voice Wave", artists: ["Grimes AI", "Ghostwriter", "A.I. Oasis", "Suno Curators", "Udio Experiments", "Holly Herndon", "Yona", "Spawn", "Kowloon Gen", "Algorave Collective"], desc: "Internet-native collages blending AI voice models, sped-up stems, and meme references." }
     ];
 
-    const canvas = document.getElementById('wheelCanvas');
-    const ctx = canvas.getContext('2d');
+    const reelViewport = document.getElementById('reelViewport');
+    const reelTrack = document.getElementById('reelTrack');
     const spinBtn = document.getElementById('spinBtn');
     const infoCard = document.getElementById('infoCard');
     const glow = document.getElementById('glow');
@@ -582,18 +634,19 @@
     const copyBtn = document.getElementById('copyBtn');
     const copyText = document.getElementById('copyText');
     const copyIcon = document.getElementById('copyIcon');
+    const btnSub = document.getElementById('btnSub');
 
     const genreTitle = document.getElementById('genreTitle');
     const genreCategory = document.getElementById('genreCategory');
     const genreVibe = document.getElementById('genreVibe');
     const genreDesc = document.getElementById('genreDesc');
 
-    const total = GENRES.length;
-    const sliceAngle = (2 * Math.PI) / total;
-    let currentAngle = 0;
-    let velocity = 0;
-    let isSpinning = false;
     let audioCtx = null;
+    let isRolling = false;
+    const CARD_WIDTH = 132; // 124px width + 8px margin
+    let reelCardsArray = [];
+    let currentX = 0;
+    let animationFrameId = null;
 
     // Realistic Web Audio FX
     function playTickSound() {
@@ -603,17 +656,16 @@
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(480, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.035);
-        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.035);
+        osc.frequency.setValueAtTime(520, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.03);
+        gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start();
-        osc.stop(audioCtx.currentTime + 0.035);
+        osc.stop(audioCtx.currentTime + 0.03);
       } catch (e) {}
 
-      // Haptic Vibration on Tick
       if (navigator.vibrate) {
         navigator.vibrate(10);
       }
@@ -637,120 +689,27 @@
         });
       } catch(e) {}
 
-      // Haptic Vibration Pattern on Selection Win
       if (navigator.vibrate) {
         navigator.vibrate([35, 45, 65]);
       }
     }
 
-    function hexToRgba(hex, alpha) {
-      hex = hex.replace('#', '');
-      const r = parseInt(hex.substring(0, 2), 16);
-      const g = parseInt(hex.substring(2, 4), 16);
-      const b = parseInt(hex.substring(4, 6), 16);
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    // Build the Card DOM
+    function createCardElement(item) {
+      const card = document.createElement('div');
+      card.className = 'reel-card';
+      card.style.setProperty('--card-accent', item.color);
+      card.innerHTML = `
+        <span class="card-cat">${item.category}</span>
+        <span class="card-name">${item.name}</span>
+        <span class="card-bpm">${item.vibe}</span>
+      `;
+      return card;
     }
 
-    function getCurrentIndex() {
-      const normalized = (currentAngle % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
-      let pointerAngle = (3 * Math.PI / 2 - normalized) % (2 * Math.PI);
-      if (pointerAngle < 0) pointerAngle += 2 * Math.PI;
-      return Math.floor(pointerAngle / sliceAngle) % total;
-    }
-
-    function renderWheel() {
-      const size = canvas.width;
-      const radius = size / 2;
-      const activeIndex = getCurrentIndex();
-
-      ctx.clearRect(0, 0, size, size);
-      ctx.save();
-      ctx.translate(radius, radius);
-      ctx.rotate(currentAngle);
-
-      for (let i = 0; i < total; i++) {
-        const start = i * sliceAngle;
-        const end = start + sliceAngle;
-        const item = GENRES[i];
-        const isActive = (i === activeIndex);
-
-        // 1. Slice Base Gradient
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.arc(0, 0, radius - 8, start, end);
-        ctx.lineTo(0, 0);
-
-        if (isActive) {
-          const activeGrad = ctx.createRadialGradient(0, 0, 80, 0, 0, radius);
-          activeGrad.addColorStop(0, hexToRgba(item.color, 0.45));
-          activeGrad.addColorStop(0.8, hexToRgba(item.color, 0.85));
-          activeGrad.addColorStop(1, item.color);
-          ctx.fillStyle = activeGrad;
-        } else {
-          const darkGrad = ctx.createRadialGradient(0, 0, 60, 0, 0, radius);
-          const tint = (i % 2 === 0) ? 0.22 : 0.12;
-          darkGrad.addColorStop(0, "#0c0d14");
-          darkGrad.addColorStop(0.7, hexToRgba(item.color, tint));
-          darkGrad.addColorStop(1, "#12141f");
-          ctx.fillStyle = darkGrad;
-        }
-        ctx.fill();
-
-        // 2. High-Contrast Laser Dividers
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(Math.cos(start) * (radius - 8), Math.sin(start) * (radius - 8));
-        ctx.strokeStyle = isActive ? "#ffffff" : "rgba(255, 255, 255, 0.25)";
-        ctx.lineWidth = isActive ? 3.5 : 1.8;
-        ctx.stroke();
-
-        // 3. Outer Neon Arc
-        ctx.beginPath();
-        ctx.arc(0, 0, radius - 8, start, end);
-        ctx.strokeStyle = item.color;
-        ctx.lineWidth = isActive ? 12 : 6;
-        ctx.stroke();
-
-        // 4. Slice Text Label
-        ctx.save();
-        const midAngle = start + sliceAngle / 2;
-        ctx.translate(
-          Math.cos(midAngle) * (radius - 128),
-          Math.sin(midAngle) * (radius - 128)
-        );
-        ctx.rotate(midAngle + Math.PI);
-
-        if (isActive) {
-          ctx.shadowColor = item.color;
-          ctx.shadowBlur = 14;
-          ctx.fillStyle = "#ffffff";
-          ctx.font = "bold 25px 'Space Grotesk', sans-serif";
-        } else {
-          ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
-          ctx.shadowBlur = 6;
-          ctx.fillStyle = "#f1f5f9";
-          ctx.font = "600 22px 'Space Grotesk', sans-serif";
-        }
-
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(item.name, 0, 0);
-        ctx.restore();
-      }
-
-      // Outer Trim Ring
-      ctx.beginPath();
-      ctx.arc(0, 0, radius - 4, 0, 2 * Math.PI);
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
-      ctx.lineWidth = 4;
-      ctx.stroke();
-
-      ctx.restore();
-    }
-
+    // Update Top Info Screen
     let lastColor = "";
-    function updateDetails(idx, forceBump = false) {
-      const g = GENRES[idx];
+    function updateDetails(g, forceBump = false) {
       genreTitle.textContent = g.name;
       genreCategory.textContent = g.category;
       genreVibe.textContent = g.vibe;
@@ -765,12 +724,12 @@
         artistsContainer.appendChild(chip);
       });
 
-      // Update Streaming Direct Links
+      // Streaming Links
       const query = encodeURIComponent(g.name + " music");
       spotifyLink.href = `https://open.spotify.com/search/${query}`;
       ytMusicLink.href = `https://music.youtube.com/search?q=${query}`;
 
-      // Update dynamic colors
+      // Update Theme Colors
       if (lastColor !== g.color) {
         document.documentElement.style.setProperty('--active-color', g.color);
         glow.style.background = `radial-gradient(circle, ${g.color}55 0%, transparent 70%)`;
@@ -782,6 +741,94 @@
         void infoCard.offsetWidth;
         infoCard.classList.add('bump');
       }
+    }
+
+    // Populate Initial Horizontal Reel
+    function initReel() {
+      reelTrack.innerHTML = '';
+      reelCardsArray = [];
+      // Pick random initial sequence
+      for (let i = 0; i < 20; i++) {
+        const randomItem = GENRES_100[Math.floor(Math.random() * GENRES_100.length)];
+        reelCardsArray.push(randomItem);
+        reelTrack.appendChild(createCardElement(randomItem));
+      }
+      // Center on index 2
+      const viewportCenter = reelViewport.offsetWidth / 2;
+      currentX = viewportCenter - (2 * CARD_WIDTH + CARD_WIDTH / 2);
+      reelTrack.style.transform = `translateX(${currentX}px)`;
+      updateDetails(reelCardsArray[2]);
+    }
+
+    // CS:GO Style Spin Simulation
+    function spinReel() {
+      if (isRolling) return;
+      isRolling = true;
+
+      // Generate a long reel of 65 random items from the 100 list
+      const TOTAL_SPIN_ITEMS = 65;
+      const WINNING_INDEX = 56; // Target slot
+      const winningGenre = GENRES_100[Math.floor(Math.random() * GENRES_100.length)];
+
+      reelTrack.innerHTML = '';
+      reelCardsArray = [];
+
+      for (let i = 0; i < TOTAL_SPIN_ITEMS; i++) {
+        let item;
+        if (i === WINNING_INDEX) {
+          item = winningGenre;
+        } else {
+          item = GENRES_100[Math.floor(Math.random() * GENRES_100.length)];
+        }
+        reelCardsArray.push(item);
+        reelTrack.appendChild(createCardElement(item));
+      }
+
+      const viewportCenter = reelViewport.offsetWidth / 2;
+      const startX = viewportCenter - (2 * CARD_WIDTH + CARD_WIDTH / 2);
+      // Add slight random offset inside the winning card (±32px)
+      const randomSubOffset = (Math.random() * 64) - 32;
+      const targetX = viewportCenter - (WINNING_INDEX * CARD_WIDTH + CARD_WIDTH / 2 + randomSubOffset);
+
+      let startTime = null;
+      const duration = 5200; // 5.2 seconds CS:GO ease out
+
+      // Custom smooth deceleration cubic-bezier
+      function easeOutCubicBezier(t) {
+        return 1 - Math.pow(1 - t, 4.2);
+      }
+
+      let lastIndexPassed = -1;
+
+      function animateReel(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = easeOutCubicBezier(progress);
+
+        currentX = startX + (targetX - startX) * ease;
+        reelTrack.style.transform = `translateX(${currentX}px)`;
+
+        // Calculate card currently centered on laser
+        const currentCenterCardIdx = Math.round((viewportCenter - currentX - CARD_WIDTH / 2) / CARD_WIDTH);
+        if (currentCenterCardIdx >= 0 && currentCenterCardIdx < reelCardsArray.length) {
+          if (currentCenterCardIdx !== lastIndexPassed) {
+            playTickSound();
+            lastIndexPassed = currentCenterCardIdx;
+            updateDetails(reelCardsArray[currentCenterCardIdx], false);
+          }
+        }
+
+        if (progress < 1) {
+          animationFrameId = requestAnimationFrame(animateReel);
+        } else {
+          isRolling = false;
+          updateDetails(winningGenre, true);
+          playWinSound();
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animateReel);
     }
 
     // One-Tap Copy Genre Name
@@ -801,53 +848,14 @@
       }
     });
 
-    // Spin animation with Real-Time Sound & Passing Slice Updates
-    let lastPassedIdx = -1;
-    function spinAnimation() {
-      if (velocity > 0.001) {
-        currentAngle += velocity;
-        velocity *= 0.984;
+    spinBtn.addEventListener('click', spinReel);
 
-        const currentIdx = getCurrentIndex();
-        if (currentIdx !== lastPassedIdx) {
-          playTickSound();
-          updateDetails(currentIdx, false);
-          lastPassedIdx = currentIdx;
-        }
-
-        renderWheel();
-        requestAnimationFrame(spinAnimation);
-      } else {
-        isSpinning = false;
-        velocity = 0;
-        const finalIdx = getCurrentIndex();
-        updateDetails(finalIdx, true);
-        renderWheel();
-        playWinSound();
-      }
-    }
-
-    function spin() {
-      if (isSpinning) return;
-      isSpinning = true;
-      velocity = Math.random() * 0.28 + 0.38;
-      spinAnimation();
-    }
-
-    spinBtn.addEventListener('click', spin);
-    canvas.addEventListener('click', spin);
-
-    // Auto-wake listeners
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') renderWheel();
+    // Initial setup on load
+    window.addEventListener('load', () => {
+      initReel();
+      updateDetails(GENRES_100[0]);
     });
-    window.addEventListener('focus', renderWheel);
-    window.addEventListener('pageshow', renderWheel);
-    window.addEventListener('resize', renderWheel);
-
-    // Initial render
-    renderWheel();
-    updateDetails(getCurrentIndex(), true);
+    window.addEventListener('resize', initReel);
   </script>
 </body>
 </html>
