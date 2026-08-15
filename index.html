@@ -4,9 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Gen Z Genre Roulette</title>
+
+  <!-- PWA & Mobile Web App Meta Tags -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#06070b" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #06070b;
@@ -51,7 +61,7 @@
       transition: background 0.35s ease;
     }
 
-    /* Top Section */
+    /* Top Information Section */
     .top-section {
       position: relative;
       z-index: 2;
@@ -167,7 +177,7 @@
       text-overflow: ellipsis;
     }
 
-    /* Bottom Roulette Stage */
+    /* Bottom Roulette Section */
     .roulette-wrapper {
       position: relative;
       width: 100%;
@@ -179,7 +189,7 @@
       z-index: 1;
     }
 
-    /* Dynamic Arrow Pointer */
+    /* Top Center Marker */
     .marker {
       position: absolute;
       top: 0;
@@ -210,7 +220,7 @@
       border-radius: 50%;
     }
 
-    /* Dynamic Center Spin Button */
+    /* Spin Button */
     .spin-center-btn {
       position: absolute;
       top: calc(14px + 225px);
@@ -251,7 +261,7 @@
 
   <div class="ambient-glow" id="glow"></div>
 
-  <!-- Top Info -->
+  <!-- Top Info Card -->
   <div class="top-section">
     <div class="badge" id="appBadge">Gen Z Sonic Roulette</div>
     <div class="info-card" id="infoCard">
@@ -268,7 +278,7 @@
     </div>
   </div>
 
-  <!-- Bottom Wheel -->
+  <!-- Bottom Wheel Section -->
   <div class="roulette-wrapper">
     <div class="marker" id="marker"></div>
     <div class="canvas-container">
@@ -281,7 +291,6 @@
   </div>
 
   <script>
-    // 20 Core Distinct Gen Z Genres with Vibrant Colors
     const GENRES = [
       { name: "Rage Rap", color: "#00ff88", category: "Rage & Rap", vibe: "Moshpit • 145 BPM", artists: "Playboi Carti, Yeat, Ken Carson", desc: "Trap driven by euphoric, buzzing EDM synthesizer leads, distorted 808s, and hyper-futuristic rhythms." },
       { name: "Hyperpop", color: "#00f0ff", category: "Digital & Glitch", vibe: "Maximalist • High BPM", artists: "100 gecs, SOPHIE, Charli xcx", desc: "Maximalist pop pushed into abrasive synthetic sound design, pitch-shifted vocals, and metallic bass drops." },
@@ -326,7 +335,6 @@
     let velocity = 0;
     let isSpinning = false;
 
-    // Helper: convert hex to rgba
     function hexToRgba(hex, alpha) {
       hex = hex.replace('#', '');
       const r = parseInt(hex.substring(0, 2), 16);
@@ -342,7 +350,6 @@
       return Math.floor(pointerAngle / sliceAngle) % total;
     }
 
-    // Dynamic Render with Slice Ignition & Laser Dividers
     function renderWheel() {
       const size = canvas.width;
       const radius = size / 2;
@@ -359,21 +366,19 @@
         const item = GENRES[i];
         const isActive = (i === activeIndex);
 
-        // 1. Dynamic Slice Background Fill
+        // 1. Slice Background
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.arc(0, 0, radius - 8, start, end);
         ctx.lineTo(0, 0);
 
         if (isActive) {
-          // ACTIVE SLICE: Vivid glowing tint + solid base
           const activeGrad = ctx.createRadialGradient(0, 0, 80, 0, 0, radius);
           activeGrad.addColorStop(0, hexToRgba(item.color, 0.45));
           activeGrad.addColorStop(0.8, hexToRgba(item.color, 0.85));
           activeGrad.addColorStop(1, item.color);
           ctx.fillStyle = activeGrad;
         } else {
-          // INACTIVE SLICES: Alternating subtle tinted carbon glass
           const darkGrad = ctx.createRadialGradient(0, 0, 60, 0, 0, radius);
           const tint = (i % 2 === 0) ? 0.22 : 0.12;
           darkGrad.addColorStop(0, "#0c0d14");
@@ -383,7 +388,7 @@
         }
         ctx.fill();
 
-        // 2. High-Contrast Laser Dividers
+        // 2. Laser Dividers
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(Math.cos(start) * (radius - 8), Math.sin(start) * (radius - 8));
@@ -391,14 +396,14 @@
         ctx.lineWidth = isActive ? 3.5 : 1.8;
         ctx.stroke();
 
-        // 3. Outer Rim Neon Arc
+        // 3. Outer Neon Arc
         ctx.beginPath();
         ctx.arc(0, 0, radius - 8, start, end);
         ctx.strokeStyle = item.color;
         ctx.lineWidth = isActive ? 12 : 6;
         ctx.stroke();
 
-        // 4. Slice Text Label
+        // 4. Slice Text
         ctx.save();
         const midAngle = start + sliceAngle / 2;
         ctx.translate(
@@ -435,7 +440,6 @@
       ctx.restore();
     }
 
-    // Dynamic UI Theme Updater
     let lastColor = "";
     function updateDetails(idx, forceBump = false) {
       const g = GENRES[idx];
@@ -445,7 +449,6 @@
       genreDesc.textContent = g.desc;
       genreArtists.textContent = g.artists;
 
-      // Update CSS theme variables
       if (lastColor !== g.color) {
         document.documentElement.style.setProperty('--active-color', g.color);
         glow.style.background = `radial-gradient(circle, ${g.color}55 0%, transparent 70%)`;
@@ -459,12 +462,11 @@
       }
     }
 
-    // Real-Time Passing Slice Audio/Visual updates
     let lastPassedIdx = -1;
     function spinAnimation() {
       if (velocity > 0.001) {
         currentAngle += velocity;
-        velocity *= 0.984; // Smooth realistic friction
+        velocity *= 0.984;
 
         const currentIdx = getCurrentIndex();
         if (currentIdx !== lastPassedIdx) {
@@ -493,7 +495,7 @@
     spinBtn.addEventListener('click', spin);
     canvas.addEventListener('click', spin);
 
-    // Auto-wake listeners for mobile idle prevention
+    // Auto-wake listeners
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') renderWheel();
     });
