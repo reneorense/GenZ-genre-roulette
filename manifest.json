@@ -1,0 +1,17 @@
+{
+  "name": "Gen Z Genre Roulette",
+  "short_name": "Roulette",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#06070b",
+  "theme_color": "#06070b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3844/3844724.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
