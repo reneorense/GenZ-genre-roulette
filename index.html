@@ -271,7 +271,6 @@
       background: rgba(255, 215, 0, 0.15);
     }
 
-    /* Increased Font Size for Description */
     .genre-description {
       font-size: 13.5px;
       line-height: 1.45;
@@ -347,7 +346,9 @@
     .spotify .music-dot { background: var(--spotify); box-shadow: 0 0 6px var(--spotify); }
     .ytmusic .music-dot { background: var(--ytmusic); box-shadow: 0 0 6px var(--ytmusic); }
 
-    /* Middle Top 10 Artists Board */
+    /* =========================================================
+       MIDDLE ARTISTS BOARD (WITH ACCORDION EXPANSION)
+       ========================================================= */
     .artists-board {
       position: relative;
       z-index: 2;
@@ -391,37 +392,44 @@
       gap: 4px 6px;
     }
 
-    .artist-item {
+    .artist-box {
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .artist-box.expanded {
+      border-color: var(--active-color);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .artist-main-row {
       padding: 4px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .artist-main-left {
       display: flex;
       align-items: center;
       gap: 5px;
       overflow: hidden;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.15s ease;
-    }
-
-    .artist-item:active {
-      transform: scale(0.96);
-      background: rgba(29, 185, 84, 0.15);
-      border-color: rgba(29, 185, 84, 0.4);
     }
 
     .artist-index {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 800;
       color: var(--active-color);
-      min-width: 13px;
+      min-width: 12px;
     }
 
     .artist-name {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
       color: #f1f5f9;
       white-space: nowrap;
@@ -429,8 +437,62 @@
       text-overflow: ellipsis;
     }
 
+    .artist-expand-indicator {
+      font-size: 8px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .artist-box.expanded .artist-expand-indicator {
+      transform: rotate(180deg);
+      color: var(--active-color);
+    }
+
+    /* Expandable Stream Action Tray */
+    .artist-stream-tray {
+      display: none;
+      padding: 4px 6px 5px;
+      gap: 5px;
+      background: rgba(0, 0, 0, 0.45);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .artist-box.expanded .artist-stream-tray {
+      display: flex;
+    }
+
+    .artist-stream-link {
+      flex: 1;
+      padding: 3px 4px;
+      font-size: 8.5px;
+      font-weight: 700;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      transition: transform 0.1s ease;
+    }
+
+    .artist-stream-link:active {
+      transform: scale(0.94);
+    }
+
+    .artist-stream-link.sp {
+      background: rgba(29, 185, 84, 0.25);
+      border: 1px solid rgba(29, 185, 84, 0.5);
+    }
+
+    .artist-stream-link.yt {
+      background: rgba(255, 0, 51, 0.25);
+      border: 1px solid rgba(255, 0, 51, 0.5);
+    }
+
     /* =========================================================
-       EXPANDED ROULETTE / SLOT ROLLER SECTION (PROMINENT HIGHLIGHT)
+       PROMINENT LARGE CS:GO SLOT ROLLER
        ========================================================= */
     .roller-container {
       position: relative;
@@ -445,7 +507,7 @@
     .reel-viewport {
       position: relative;
       width: 100%;
-      height: 120px; /* Increased viewport height */
+      height: 140px; /* Highly prominent large viewport */
       background: #090b12;
       border-top: 1.5px solid rgba(255, 255, 255, 0.15);
       border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
@@ -462,9 +524,9 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 3.5px;
+      width: 4px;
       background: var(--active-color);
-      box-shadow: 0 0 16px var(--active-color), 0 0 30px var(--active-color);
+      box-shadow: 0 0 18px var(--active-color), 0 0 35px var(--active-color);
       z-index: 10;
       pointer-events: none;
       transition: background 0.35s ease, box-shadow 0.35s ease;
@@ -478,9 +540,9 @@
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 9px solid transparent;
-      border-right: 9px solid transparent;
-      border-top: 13px solid var(--active-color);
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 15px solid var(--active-color);
     }
 
     .center-laser::after {
@@ -491,9 +553,9 @@
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 9px solid transparent;
-      border-right: 9px solid transparent;
-      border-bottom: 13px solid var(--active-color);
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 15px solid var(--active-color);
     }
 
     .reel-track {
@@ -504,18 +566,17 @@
       will-change: transform;
     }
 
-    /* Larger, Prominent Genre Cards */
     .reel-card {
-      width: 140px;
-      height: 98px;
-      margin: 0 5px;
+      width: 155px;
+      height: 112px;
+      margin: 0 6px;
       background: #11131c;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
+      border-radius: 14px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 9px 10px;
+      padding: 10px 12px;
       flex-shrink: 0;
       box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
       position: relative;
@@ -534,7 +595,7 @@
     }
 
     .reel-card .card-cat {
-      font-size: 8.5px;
+      font-size: 9px;
       font-weight: 800;
       text-transform: uppercase;
       color: var(--card-accent, #00ff88);
@@ -546,7 +607,7 @@
 
     .reel-card .card-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 14px;
+      font-size: 15.5px;
       font-weight: 800;
       color: #ffffff;
       line-height: 1.2;
@@ -557,7 +618,7 @@
     }
 
     .reel-card .card-bpm {
-      font-size: 9.5px;
+      font-size: 10px;
       color: var(--text-muted);
       font-weight: 600;
     }
@@ -565,7 +626,7 @@
     .spin-bar-btn {
       width: 100%;
       max-width: 420px;
-      height: 50px;
+      height: 48px;
       border-radius: 14px;
       background: radial-gradient(circle, #1a1c29 0%, #0d0e15 100%);
       border: 2px solid var(--active-color);
@@ -784,16 +845,16 @@
     </div>
   </div>
 
-  <!-- Middle Top 10 Artists Board (Tap to Stream) -->
+  <!-- Middle Top 10 Artists Board with Spotify/YT Music Select -->
   <div class="artists-board">
     <div class="artists-board-header">
       <span class="artists-board-title" id="artistsBoardTitle">Key Artists</span>
-      <span class="artists-board-hint">Tap artist to stream</span>
+      <span class="artists-board-hint">Tap artist to choose streaming</span>
     </div>
     <div class="artists-grid" id="artistsGrid"></div>
   </div>
 
-  <!-- Bottom CS:GO Slot Roller -->
+  <!-- Bottom Large CS:GO Slot Roller -->
   <div class="roller-container">
     <div class="reel-viewport" id="reelViewport">
       <div class="center-laser"></div>
@@ -957,7 +1018,7 @@
 
     let audioCtx = null;
     let isRolling = false;
-    const CARD_WIDTH = 150; // Updated to match 140px width + 10px total margins
+    const CARD_WIDTH = 167; // 155px width + 12px margins
     let currentX = 0;
     let animationFrameId = null;
 
@@ -1076,18 +1137,36 @@
       genreRarity.textContent = rInfo.label;
       document.documentElement.style.setProperty('--rarity-color', rInfo.color);
 
+      // Render Artists with Expansion for Spotify or YouTube Music
       artistsGrid.innerHTML = '';
       g.artists.forEach((artist, index) => {
-        const item = document.createElement('a');
-        item.className = 'artist-item';
-        item.href = `https://open.spotify.com/search/${encodeURIComponent(artist)}`;
-        item.target = "_blank";
-        item.rel = "noopener noreferrer";
-        item.innerHTML = `
-          <span class="artist-index">${(index + 1).toString().padStart(2, '0')}</span>
-          <span class="artist-name">${artist}</span>
+        const box = document.createElement('div');
+        box.className = 'artist-box';
+        box.innerHTML = `
+          <div class="artist-main-row">
+            <div class="artist-main-left">
+              <span class="artist-index">${(index + 1).toString().padStart(2, '0')}</span>
+              <span class="artist-name">${artist}</span>
+            </div>
+            <span class="artist-expand-indicator">▼</span>
+          </div>
+          <div class="artist-stream-tray">
+            <a href="https://open.spotify.com/search/${encodeURIComponent(artist)}" target="_blank" rel="noopener noreferrer" class="artist-stream-link sp">
+              🟢 Spotify
+            </a>
+            <a href="https://music.youtube.com/search?q=${encodeURIComponent(artist)}" target="_blank" rel="noopener noreferrer" class="artist-stream-link yt">
+              🔴 YT Music
+            </a>
+          </div>
         `;
-        artistsGrid.appendChild(item);
+
+        box.querySelector('.artist-main-row').addEventListener('click', () => {
+          const isExp = box.classList.contains('expanded');
+          document.querySelectorAll('.artist-box').forEach(b => b.classList.remove('expanded'));
+          if (!isExp) box.classList.add('expanded');
+        });
+
+        artistsGrid.appendChild(box);
       });
 
       const query = encodeURIComponent(g.name + " music");
