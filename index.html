@@ -40,17 +40,17 @@
       background-color: var(--bg);
       color: var(--text);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      height: 100vh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: space-between;
       align-items: center;
       overflow: hidden;
       position: relative;
-      padding: 8px 0;
+      padding: 10px 14px 18px;
     }
 
-    /* Ambient Dynamic Glow */
+    /* Ambient Glow */
     .ambient-glow {
       position: absolute;
       top: -30px;
@@ -65,21 +65,21 @@
       transition: background 0.35s ease;
     }
 
-    /* Top Information Section */
+    /* Top Information Card */
     .top-section {
       position: relative;
       z-index: 2;
       width: 100%;
-      padding: 0 16px;
+      max-width: 420px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .badge {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -94,14 +94,13 @@
 
     .info-card {
       width: 100%;
-      max-width: 420px;
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-left: 4px solid var(--active-color);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-radius: 18px;
-      padding: 14px 16px;
+      border-radius: 16px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
       gap: 7px;
@@ -120,20 +119,20 @@
     }
 
     .category-pill {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--active-color);
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--active-color);
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 6px;
       transition: all 0.35s ease;
     }
 
     .vibe-text {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-muted);
       font-weight: 600;
     }
@@ -142,12 +141,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
     }
 
     .genre-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 800;
       color: #ffffff;
       line-height: 1.1;
@@ -159,8 +158,8 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: var(--active-color);
       border-radius: 8px;
-      padding: 5px 9px;
-      font-size: 11px;
+      padding: 4px 8px;
+      font-size: 10.5px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -176,21 +175,19 @@
     }
 
     .genre-description {
-      font-size: 12px;
+      font-size: 11.5px;
       line-height: 1.35;
       color: #d1d5db;
-      min-height: 32px;
     }
 
-    /* Meta Details Pill Grid */
     .genre-quick-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      background: rgba(0, 0, 0, 0.35);
-      padding: 6px 8px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 5px 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .stat-box {
@@ -201,7 +198,7 @@
     }
 
     .stat-label {
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
@@ -209,55 +206,15 @@
     }
 
     .stat-value {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 700;
       color: #ffffff;
       white-space: nowrap;
     }
 
-    /* Top 10 Artists Scroll Container */
-    .artists-section {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .artists-header {
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--active-color);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      transition: color 0.35s ease;
-    }
-
-    .artists-scroll-row {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 2px;
-      scrollbar-width: none;
-    }
-
-    .artists-scroll-row::-webkit-scrollbar {
-      display: none;
-    }
-
-    .artist-chip {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 3px 8px;
-      font-size: 11px;
-      font-weight: 600;
-      white-space: nowrap;
-      color: #f1f5f9;
-    }
-
-    /* Music Streaming Links */
     .links-row {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       margin-top: 2px;
     }
 
@@ -267,15 +224,15 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 7px 10px;
-      border-radius: 10px;
-      font-size: 11.5px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-size: 11px;
       font-weight: 700;
       text-decoration: none;
       color: #ffffff;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.15s ease;
     }
 
     .music-link-btn.spotify {
@@ -297,8 +254,8 @@
     }
 
     .music-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
     }
 
@@ -306,31 +263,84 @@
     .ytmusic .music-dot { background: var(--ytmusic); box-shadow: 0 0 6px var(--ytmusic); }
 
     /* =========================================================
-       CENTER AUDIO SPECTRUM VISUALIZER
+       MIDDLE SECTION: TOP 10 ARTISTS 2-COLUMN GRID
        ========================================================= */
-    .visualizer-stage {
+    .artists-board {
       position: relative;
-      width: 100%;
-      max-width: 380px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
       z-index: 2;
+      width: 100%;
+      max-width: 420px;
+      background: rgba(10, 12, 19, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
     }
 
-    .spectrum-bar {
-      width: 4px;
-      height: 12px;
-      background: var(--active-color);
-      border-radius: 4px;
-      box-shadow: 0 0 8px var(--active-color);
-      transition: height 0.08s ease, background 0.35s ease, box-shadow 0.35s ease;
+    .artists-board-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2px;
+    }
+
+    .artists-board-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--active-color);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.35s ease;
+    }
+
+    .artists-board-count {
+      font-size: 9px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .artists-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px 8px;
+    }
+
+    .artist-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      padding: 5px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow: hidden;
+    }
+
+    .artist-index {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9.5px;
+      font-weight: 800;
+      color: var(--active-color);
+      opacity: 0.85;
+      min-width: 14px;
+      transition: color 0.35s ease;
+    }
+
+    .artist-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* =========================================================
-       CS:GO / CASINO HORIZONTAL ROLLER SECTION
+       BOTTOM SECTION: CS:GO HORIZONTAL REEL
        ========================================================= */
     .roller-container {
       position: relative;
@@ -338,14 +348,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       z-index: 2;
     }
 
     .reel-viewport {
       position: relative;
       width: 100%;
-      height: 114px;
+      height: 100px;
       background: #090b12;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -407,19 +417,19 @@
     }
 
     .reel-card {
-      width: 124px;
-      height: 90px;
+      width: 122px;
+      height: 80px;
       margin: 0 4px;
       background: #11131c;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
+      border-radius: 10px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 9px;
+      padding: 8px;
       flex-shrink: 0;
       box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
-      transition: border-color 0.2s ease, transform 0.2s ease;
+      transition: border-color 0.2s ease;
       position: relative;
       overflow: hidden;
     }
@@ -436,7 +446,7 @@
     }
 
     .reel-card .card-cat {
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 800;
       text-transform: uppercase;
       color: var(--card-accent, #00ff88);
@@ -448,7 +458,7 @@
 
     .reel-card .card-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
       color: #ffffff;
       line-height: 1.15;
@@ -459,16 +469,16 @@
     }
 
     .reel-card .card-bpm {
-      font-size: 9px;
+      font-size: 8.5px;
       color: var(--text-muted);
       font-weight: 600;
     }
 
     .spin-bar-btn {
-      width: calc(100% - 36px);
+      width: 100%;
       max-width: 420px;
-      height: 50px;
-      border-radius: 14px;
+      height: 48px;
+      border-radius: 12px;
       background: radial-gradient(circle, #1a1c29 0%, #0d0e15 100%);
       border: 2px solid var(--active-color);
       color: #ffffff;
@@ -490,11 +500,11 @@
     }
 
     .spin-bar-btn .btn-sub {
-      font-size: 10px;
+      font-size: 9.5px;
       color: var(--active-color);
       border: 1px solid var(--active-color);
       padding: 1px 6px;
-      border-radius: 6px;
+      border-radius: 5px;
       transition: all 0.35s ease;
     }
   </style>
@@ -509,43 +519,35 @@
     <div class="info-card" id="infoCard">
       
       <div class="card-meta">
-        <span class="category-pill" id="genreCategory">Glitch & Digital</span>
-        <span class="vibe-text" id="genreVibe">Maximalist • High BPM</span>
+        <span class="category-pill" id="genreCategory">Global Waves</span>
+        <span class="vibe-text" id="genreVibe">Afrobeats Log Drums</span>
       </div>
 
       <div class="title-row">
-        <h2 class="genre-name" id="genreTitle">Hyperpop</h2>
+        <h2 class="genre-name" id="genreTitle">Afropiano</h2>
         <button class="copy-btn" id="copyBtn">
           <span id="copyIcon">📋</span>
           <span id="copyText">COPY</span>
         </button>
       </div>
 
-      <p class="genre-description" id="genreDesc">Pushed maximalist, pitch-shifted pop into abrasive, distorted synths and high-BPM chaos.</p>
+      <p class="genre-description" id="genreDesc">West African Afrobeats vocal melodies riding South African Amapiano log drums.</p>
       
-      <!-- Quick Stats Meta Grid -->
       <div class="genre-quick-stats">
         <div class="stat-box">
           <span class="stat-label">ORIGIN</span>
-          <span class="stat-value" id="statOrigin">Internet / PC Music</span>
+          <span class="stat-value" id="statOrigin">Lagos, Nigeria</span>
         </div>
         <div class="stat-box">
           <span class="stat-label">PEAK ERA</span>
-          <span class="stat-value" id="statEra">2019 – Present</span>
+          <span class="stat-value" id="statEra">2021–Present</span>
         </div>
         <div class="stat-box">
           <span class="stat-label">ENERGY</span>
-          <span class="stat-value" id="statEnergy">⚡ Overdrive</span>
+          <span class="stat-value" id="statEnergy">🇳🇬 Vibrant</span>
         </div>
       </div>
 
-      <!-- Top 10 Artists Badges -->
-      <div class="artists-section">
-        <span class="artists-header" id="artistsHeader">Top Artists</span>
-        <div class="artists-scroll-row" id="artistsContainer"></div>
-      </div>
-
-      <!-- Streaming Links -->
       <div class="links-row">
         <a href="#" target="_blank" class="music-link-btn spotify" id="spotifyLink">
           <span class="music-dot"></span> Spotify
@@ -558,9 +560,15 @@
     </div>
   </div>
 
-  <!-- Center Equalizer Visualizer Stage -->
-  <div class="visualizer-stage" id="visualizer">
-    <!-- 28 Spectrum Neon Bars -->
+  <!-- Middle Section: Top 10 Artists (2 Columns x 5 Rows) -->
+  <div class="artists-board">
+    <div class="artists-board-header">
+      <span class="artists-board-title" id="artistsBoardTitle">Key Artists</span>
+      <span class="artists-board-count">TOP 10</span>
+    </div>
+    <div class="artists-grid" id="artistsGrid">
+      <!-- 10 Artists dynamically populated -->
+    </div>
   </div>
 
   <!-- Bottom CS:GO Slot Roller Section -->
@@ -664,6 +672,7 @@
       { name: "Nu-Metalcore", color: "#b91c1c", category: "Rock & Guitar", vibe: "Turntable Breakdowns", origin: "US / Australia", era: "2019–Present", energy: "🤘 Heavy", artists: ["Bad Omens", "Spiritbox", "Tallah", "Alpha Wolf", "Loathe", "Void of Vision", "Tetrarch", "Ocean Grove", "Graphic Nature", "Dealer"], desc: "Modern metalcore incorporating early 2000s turntablism and hip-hop cadences." },
 
       // 6. Global Internet Hybrids & Regional Waves (76-90)
+      { name: "Modern P-Pop", color: "#ff007f", category: "Global Waves", vibe: "Pinoy Pop Wave", origin: "Philippines", era: "2020–Present", energy: "✨ Euphoric", artists: ["SB19", "BINI", "ALAMAT", "G22", "KAIA", "BGYO", "VXON", "HORI7ON", "FELIP", "Josh Cullen"], desc: "Filipino pop blending Western and K-pop production styles with Pinoy vocal harmonies and vibrant youth choreography." },
       { name: "Amapiano", color: "#ffcc00", category: "Global Waves", vibe: "Log Drum Groove", origin: "Johannesburg, SA", era: "2019–Present", energy: "🪵 Log Drum", artists: ["Uncle Waffles", "Kabza De Small", "DJ Maphorisa", "Focalistic", "Tyler ICU", "Musa Keys", "Young Stunna", "DBN Gogo", "Major League DJz", "Daliwonga"], desc: "South African house subgenre with deep basslines and rattling log drum percussion." },
       { name: "Afropiano", color: "#f59e0b", category: "Global Waves", vibe: "Afrobeats Log Drums", origin: "Lagos, Nigeria", era: "2021–Present", energy: "🇳🇬 Vibrant", artists: ["Asake", "Burna Boy", "Rema", "Davido", "Fireboy DML", "Kizz Daniel", "Seyi Vibez", "BNXN", "Victony", "Shallipopi"], desc: "West African Afrobeats vocal melodies riding South African Amapiano log drums." },
       { name: "Corridos Tumbados", color: "#10b981", category: "Global Waves", vibe: "Brass Horn Trap", origin: "Mexico / US", era: "2020–Present", energy: "🇲🇽 Brass", artists: ["Peso Pluma", "Natanael Cano", "Junior H", "Fuerza Regida", "Gabito Ballesteros", "Xavi", "Oscar Maydon", "Chino Pacas", "Luis R Conriquez", "Tito Double P"], desc: "Traditional Mexican corrido instruments (requinto, brass) fused with trap 808s." },
@@ -681,9 +690,9 @@
       { name: "French Afro-Trap", color: "#3b82f6", category: "Global Waves", vibe: "Afro Beats Rap", origin: "Paris, France", era: "2016–Present", energy: "🇫🇷 Bouncy", artists: ["MHD", "Naza", "Keblack", "Gradur", "Dadju", "Tayc", "Aya Nakamura", "Gazo", "Tiakola", "Franglish"], desc: "African percussion arrangements blended with French trap cadence and melodic flows." },
 
       // 7. Niche Internet Micro-Movements & Aesthetic Waves (91-100)
-      { name: "Dreampunk", color: "#818cf8", category: "Internet Aesthetics", vibe: "Cyberpunk Rain", origin: "Internet / UK", era: "2014–Present", energy: "🌧️ Cyber", artists: ["2814", "HKE", "Telepath", "t e l e p a t h テレパシー能力者", "Remember", "Sangam", "Subaeris", "Viper", "Hong Kong Express", "Rashida Prime"], desc: "Cinematic, rainy-night ambient soundscapes built on pitch-bent synth pads." },
-      { name: "Dungeon Synth", color: "#65a30d", category: "Internet Aesthetics", vibe: "Lo-Fi Fantasy RPG", origin: "Bandcamp", era: "2018–Present", energy: "🏰 Medieval", artists: ["Hole Dweller", "Morten Art", "Depressive Silence", "Old Tower", "Erang", "Fief", "Secret Stairways", "Quest Master", "Thangorodrim", "Gargoyle"], desc: "Lo-fi electronic music simulating fantasy RPG soundtracks and retro gaming lore." },
-      { name: "Weirdcore Pop", color: "#e879f9", category: "Internet Aesthetics", vibe: "Liminal Childhood", origin: "TikTok / YouTube", era: "2020–Present", energy: "🧸 Surreal", artists: ["Jack Stauber", "Bo En", "Kikuo", "Oliver Buckland", "In Love With A Ghost", "Bill Wurtz", "The Caretaker", "Vundabar", "Graham Kartna", "Nelward"], desc: "Surreal pop songs using detached child-like delivery and vintage keyboards." },
+      { name: "Indonesian Indie Pop", color: "#f59e0b", category: "Global Waves", vibe: "Melodic Indie", origin: "Indonesia", era: "2018–Present", energy: "🌊 Mellow", artists: ["Tulus", "Nadin Amizah", "Reality Club", "Pamungkas", "Hindia", "Ardhito Pramono", "Isyana Sarasvati", "Raisa", "Kunto Aji", "Rich Brian"], desc: "Heartfelt, poetic Indonesian songwriting blending indie-folk with modern pop production." },
+      { name: "Malaysian Pop/Hip-Hop", color: "#22c55e", category: "Global Waves", vibe: "Malay Flow", origin: "Malaysia", era: "2019–Present", energy: "🔥 Urban", artists: ["Joe Flizzow", "Yonnyboii", "Alif", "SonaOne", "Zynakal", "Kaka Azraff", "Aina Abdul", "Naim Daniel", "Luqman Podolski", "Aiman Tino"], desc: "Dynamic fusion of Malay language lyrics with contemporary hip-hop and commercial pop beats." },
+      { name: "T-Pop (Thai Wave)", color: "#8b5cf6", category: "Global Waves", vibe: "Modern T-Pop", origin: "Thailand", era: "2020–Present", energy: "✨ Polished", artists: ["PP Krit", "Billkin", "4EVE", "PIXXIE", "ALLY", "Trinity", "Atlas", "Jeff Satur", "Ink Waruntorn", "Bodyslam"], desc: "Highly polished Thai pop featuring dramatic vocal ballads and high-concept idol choreography." },
       { name: "Vapor Twitch", color: "#06b6d4", category: "Internet Aesthetics", vibe: "Granular Chops", origin: "Australia / US", era: "2016–Present", energy: "🔮 Granular", artists: ["Flume", "Quiet Bison", "DROELOE", "San Holo", "Medasin", "Kasbo", "Petit Biscuit", "What So Not", "Ford.", "Inzo"], desc: "Granular synthesis, micro-chops, and off-grid experimental electronic grooves." },
       { name: "Hypnagogic Pop", color: "#f9a8d4", category: "Internet Aesthetics", vibe: "Faded Radio Tape", origin: "US Indie", era: "2010s–Present", energy: "📼 Nostalgic", artists: ["Ariel Pink", "John Maus", "James Ferraro", "Ducktails", "The Skaters", "Panda Bear", "Sun Araw", "Oneohtrix Point Never", "Toro y Moi", "Neon Indian"], desc: "Nostalgic lo-fi music attempting to recreate radio memories through tape hiss." },
       { name: "Darksynth", color: "#ef4444", category: "Internet Aesthetics", vibe: "Horror Cyberpunk", origin: "France / US", era: "2015–Present", energy: "🩸 Horror", artists: ["Carpenter Brut", "Perturbator", "Dance With the Dead", "GosT", "Mega Drive", "Dan Terminus", "Lorn", "Master Boot Record", "Vector Seven", "Gunship"], desc: "Heavy electronic rock incorporating horror-movie synths and dystopian basslines." },
@@ -693,15 +702,14 @@
       { name: "A.I. Hybrid Pop", color: "#a855f7", category: "Digital & Glitch", vibe: "Montage Voice Wave", origin: "AI Web Communities", era: "2023–Present", energy: "🤖 Cyber", artists: ["Grimes AI", "Ghostwriter", "A.I. Oasis", "Suno Curators", "Udio Experiments", "Holly Herndon", "Yona", "Spawn", "Kowloon Gen", "Algorave Collective"], desc: "Internet-native collages blending AI voice models, sped-up stems, and meme references." }
     ];
 
-    const visualizer = document.getElementById('visualizer');
     const reelViewport = document.getElementById('reelViewport');
     const reelTrack = document.getElementById('reelTrack');
     const spinBtn = document.getElementById('spinBtn');
     const infoCard = document.getElementById('infoCard');
     const glow = document.getElementById('glow');
     const appBadge = document.getElementById('appBadge');
-    const artistsHeader = document.getElementById('artistsHeader');
-    const artistsContainer = document.getElementById('artistsContainer');
+    const artistsBoardTitle = document.getElementById('artistsBoardTitle');
+    const artistsGrid = document.getElementById('artistsGrid');
     const spotifyLink = document.getElementById('spotifyLink');
     const ytMusicLink = document.getElementById('ytMusicLink');
     const copyBtn = document.getElementById('copyBtn');
@@ -719,35 +727,11 @@
 
     let audioCtx = null;
     let isRolling = false;
-    const CARD_WIDTH = 132;
+    const CARD_WIDTH = 130;
     let reelCardsArray = [];
     let currentX = 0;
     let animationFrameId = null;
 
-    // Create 28 Equalizer Visualizer Bars
-    const TOTAL_BARS = 28;
-    const barsArray = [];
-    for (let i = 0; i < TOTAL_BARS; i++) {
-      const bar = document.createElement('div');
-      bar.className = 'spectrum-bar';
-      visualizer.appendChild(bar);
-      barsArray.push(bar);
-    }
-
-    // Spectrum Animation Loop
-    function updateVisualizer(intensity = 0.25) {
-      barsArray.forEach((bar, idx) => {
-        const factor = Math.sin(Date.now() * 0.008 + idx * 0.4) * 0.5 + 0.5;
-        const randomHeight = Math.floor(factor * (intensity * 46) + 6);
-        bar.style.height = `${Math.min(52, Math.max(6, randomHeight))}px`;
-      });
-    }
-
-    let visLoop = setInterval(() => {
-      if (!isRolling) updateVisualizer(0.2);
-    }, 100);
-
-    // Realistic Web Audio FX
     function playTickSound() {
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -793,7 +777,6 @@
       }
     }
 
-    // Build the Card DOM
     function createCardElement(item) {
       const card = document.createElement('div');
       card.className = 'reel-card';
@@ -806,7 +789,6 @@
       return card;
     }
 
-    // Update Top Info Screen
     let lastColor = "";
     function updateDetails(g, forceBump = false) {
       genreTitle.textContent = g.name;
@@ -817,13 +799,16 @@
       statEra.textContent = g.era || "2020s";
       statEnergy.textContent = g.energy || "⚡ High";
 
-      // Render Top 10 Artist Badges
-      artistsContainer.innerHTML = '';
-      g.artists.forEach(artist => {
-        const chip = document.createElement('span');
-        chip.className = 'artist-chip';
-        chip.textContent = artist;
-        artistsContainer.appendChild(chip);
+      // Render Top 10 Artists (2 Columns x 5 Rows Grid)
+      artistsGrid.innerHTML = '';
+      g.artists.forEach((artist, index) => {
+        const item = document.createElement('div');
+        item.className = 'artist-item';
+        item.innerHTML = `
+          <span class="artist-index">${(index + 1).toString().padStart(2, '0')}</span>
+          <span class="artist-name">${artist}</span>
+        `;
+        artistsGrid.appendChild(item);
       });
 
       // Streaming Links
@@ -831,7 +816,7 @@
       spotifyLink.href = `https://open.spotify.com/search/${query}`;
       ytMusicLink.href = `https://music.youtube.com/search?q=${query}`;
 
-      // Update Theme Colors
+      // Update Active Accent
       if (lastColor !== g.color) {
         document.documentElement.style.setProperty('--active-color', g.color);
         glow.style.background = `radial-gradient(circle, ${g.color}55 0%, transparent 70%)`;
@@ -845,7 +830,6 @@
       }
     }
 
-    // Populate Initial Horizontal Reel
     function initReel() {
       reelTrack.innerHTML = '';
       reelCardsArray = [];
@@ -860,7 +844,6 @@
       updateDetails(reelCardsArray[2]);
     }
 
-    // CS:GO Style Spin Simulation
     function spinReel() {
       if (isRolling) return;
       isRolling = true;
@@ -880,7 +863,7 @@
 
       const viewportCenter = reelViewport.offsetWidth / 2;
       const startX = viewportCenter - (2 * CARD_WIDTH + CARD_WIDTH / 2);
-      const randomSubOffset = (Math.random() * 64) - 32;
+      const randomSubOffset = (Math.random() * 60) - 30;
       const targetX = viewportCenter - (WINNING_INDEX * CARD_WIDTH + CARD_WIDTH / 2 + randomSubOffset);
 
       let startTime = null;
@@ -900,9 +883,6 @@
 
         currentX = startX + (targetX - startX) * ease;
         reelTrack.style.transform = `translateX(${currentX}px)`;
-
-        // Turbo visualizer waves while rolling
-        updateVisualizer(1.0 - ease * 0.6);
 
         const currentCenterCardIdx = Math.round((viewportCenter - currentX - CARD_WIDTH / 2) / CARD_WIDTH);
         if (currentCenterCardIdx >= 0 && currentCenterCardIdx < reelCardsArray.length) {
@@ -925,7 +905,6 @@
       animationFrameId = requestAnimationFrame(animateReel);
     }
 
-    // One-Tap Copy Genre Name
     copyBtn.addEventListener('click', async () => {
       const currentGenreName = genreTitle.textContent;
       try {
