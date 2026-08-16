@@ -49,25 +49,25 @@
       align-items: center;
       overflow: hidden;
       position: relative;
-      padding: 8px 12px 14px;
+      padding: 6px 12px 10px;
     }
 
-    /* Dynamic Ambient Background Glow */
+    /* Ambient Dynamic Glow */
     .ambient-glow {
       position: absolute;
       top: -30px;
       left: 50%;
       transform: translateX(-50%);
-      width: 360px;
-      height: 360px;
+      width: 380px;
+      height: 380px;
       background: radial-gradient(circle, rgba(0, 255, 136, 0.25) 0%, transparent 70%);
-      filter: blur(65px);
+      filter: blur(70px);
       z-index: 0;
       pointer-events: none;
       transition: background 0.35s ease;
     }
 
-    /* Top Navigation & Category Filter */
+    /* Top Nav & Category Filter */
     .header-bar {
       position: relative;
       z-index: 2;
@@ -75,7 +75,7 @@
       max-width: 420px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     .top-nav {
@@ -86,7 +86,7 @@
 
     .app-title-badge {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 800;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -116,7 +116,6 @@
       transform: scale(0.94);
     }
 
-    /* Swipeable Category Filter */
     .category-filter-row {
       display: flex;
       gap: 5px;
@@ -189,22 +188,22 @@
     }
 
     .category-pill {
-      font-size: 8.5px;
+      font-size: 9px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--active-color);
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--active-color);
-      padding: 2px 6px;
+      padding: 2px 7px;
       border-radius: 5px;
     }
 
     .rarity-pill {
-      font-size: 8.5px;
+      font-size: 9px;
       font-weight: 800;
       text-transform: uppercase;
-      padding: 2px 6px;
+      padding: 2px 7px;
       border-radius: 5px;
       color: #000;
       background: var(--rarity-color);
@@ -213,7 +212,7 @@
     }
 
     .vibe-text {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--text-muted);
       font-weight: 600;
       white-space: nowrap;
@@ -230,7 +229,7 @@
 
     .genre-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 19px;
+      font-size: 22px;
       font-weight: 800;
       color: #ffffff;
       line-height: 1.1;
@@ -251,8 +250,8 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: #ffffff;
       border-radius: 7px;
-      padding: 4px 7px;
-      font-size: 10px;
+      padding: 4px 8px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -272,14 +271,12 @@
       background: rgba(255, 215, 0, 0.15);
     }
 
+    /* Increased Font Size for Description */
     .genre-description {
-      font-size: 11px;
-      line-height: 1.35;
-      color: #d1d5db;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: #e2e8f0;
+      font-weight: 500;
     }
 
     .genre-quick-stats {
@@ -300,14 +297,14 @@
     }
 
     .stat-label {
-      font-size: 7.5px;
+      font-size: 8px;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
     }
 
     .stat-value {
-      font-size: 9.5px;
+      font-size: 10.5px;
       font-weight: 700;
       color: #ffffff;
       white-space: nowrap;
@@ -327,9 +324,9 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      padding: 5px 8px;
+      padding: 6px 8px;
       border-radius: 8px;
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 700;
       text-decoration: none;
       color: #ffffff;
@@ -350,7 +347,7 @@
     .spotify .music-dot { background: var(--spotify); box-shadow: 0 0 6px var(--spotify); }
     .ytmusic .music-dot { background: var(--ytmusic); box-shadow: 0 0 6px var(--ytmusic); }
 
-    /* Middle Top 10 Artists Board (Tap-To-Stream) */
+    /* Middle Top 10 Artists Board */
     .artists-board {
       position: relative;
       z-index: 2;
@@ -359,10 +356,10 @@
       background: rgba(10, 12, 19, 0.88);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
-      padding: 8px 10px;
+      padding: 7px 10px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
     }
 
@@ -383,7 +380,7 @@
     }
 
     .artists-board-hint {
-      font-size: 8px;
+      font-size: 8.5px;
       color: var(--text-muted);
       font-weight: 600;
     }
@@ -417,14 +414,14 @@
 
     .artist-index {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 8.5px;
+      font-size: 9px;
       font-weight: 800;
       color: var(--active-color);
-      min-width: 12px;
+      min-width: 13px;
     }
 
     .artist-name {
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 600;
       color: #f1f5f9;
       white-space: nowrap;
@@ -432,7 +429,9 @@
       text-overflow: ellipsis;
     }
 
-    /* Bottom CS:GO Slot Roller */
+    /* =========================================================
+       EXPANDED ROULETTE / SLOT ROLLER SECTION (PROMINENT HIGHLIGHT)
+       ========================================================= */
     .roller-container {
       position: relative;
       width: 100%;
@@ -446,15 +445,15 @@
     .reel-viewport {
       position: relative;
       width: 100%;
-      height: 94px;
+      height: 120px; /* Increased viewport height */
       background: #090b12;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
       overflow: hidden;
       display: flex;
       align-items: center;
-      mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 16%, black 84%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 16%, black 84%, transparent);
     }
 
     .center-laser {
@@ -463,9 +462,9 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 3px;
+      width: 3.5px;
       background: var(--active-color);
-      box-shadow: 0 0 14px var(--active-color), 0 0 24px var(--active-color);
+      box-shadow: 0 0 16px var(--active-color), 0 0 30px var(--active-color);
       z-index: 10;
       pointer-events: none;
       transition: background 0.35s ease, box-shadow 0.35s ease;
@@ -479,9 +478,9 @@
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-top: 10px solid var(--active-color);
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      border-top: 13px solid var(--active-color);
     }
 
     .center-laser::after {
@@ -492,9 +491,9 @@
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 10px solid var(--active-color);
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      border-bottom: 13px solid var(--active-color);
     }
 
     .reel-track {
@@ -505,19 +504,20 @@
       will-change: transform;
     }
 
+    /* Larger, Prominent Genre Cards */
     .reel-card {
-      width: 118px;
-      height: 76px;
-      margin: 0 4px;
+      width: 140px;
+      height: 98px;
+      margin: 0 5px;
       background: #11131c;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 7px;
+      padding: 9px 10px;
       flex-shrink: 0;
-      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
       position: relative;
       overflow: hidden;
     }
@@ -528,27 +528,28 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
+      height: 4px;
       background: var(--card-accent, #00ff88);
-      box-shadow: 0 0 8px var(--card-accent, #00ff88);
+      box-shadow: 0 0 10px var(--card-accent, #00ff88);
     }
 
     .reel-card .card-cat {
-      font-size: 7.5px;
+      font-size: 8.5px;
       font-weight: 800;
       text-transform: uppercase;
       color: var(--card-accent, #00ff88);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      letter-spacing: 0.5px;
     }
 
     .reel-card .card-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 11.5px;
+      font-size: 14px;
       font-weight: 800;
       color: #ffffff;
-      line-height: 1.15;
+      line-height: 1.2;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -556,7 +557,7 @@
     }
 
     .reel-card .card-bpm {
-      font-size: 8px;
+      font-size: 9.5px;
       color: var(--text-muted);
       font-weight: 600;
     }
@@ -564,21 +565,21 @@
     .spin-bar-btn {
       width: 100%;
       max-width: 420px;
-      height: 46px;
-      border-radius: 12px;
+      height: 50px;
+      border-radius: 14px;
       background: radial-gradient(circle, #1a1c29 0%, #0d0e15 100%);
       border: 2px solid var(--active-color);
       color: #ffffff;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 15px;
       letter-spacing: 1px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
-      box-shadow: 0 0 20px var(--active-color), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+      gap: 8px;
+      box-shadow: 0 0 24px var(--active-color), inset 0 1px 2px rgba(255, 255, 255, 0.3);
       transition: transform 0.15s ease, border-color 0.35s ease, box-shadow 0.35s ease;
     }
 
@@ -587,11 +588,11 @@
     }
 
     .spin-bar-btn .btn-sub {
-      font-size: 9px;
+      font-size: 9.5px;
       color: var(--active-color);
       border: 1px solid var(--active-color);
-      padding: 1px 5px;
-      border-radius: 4px;
+      padding: 1px 6px;
+      border-radius: 5px;
     }
 
     /* Modal / Drawer */
@@ -700,7 +701,7 @@
     }
 
     .drawer-item-sub {
-      font-size: 9px;
+      font-size: 9.5px;
       color: var(--text-muted);
     }
   </style>
@@ -820,7 +821,6 @@
   </div>
 
   <script>
-    // FULL 100 GEN Z MUSIC GENRES WITH RARITY TIERS
     const GENRES_100 = [
       // 1. Digital & Glitch (1-15)
       { name: "Hyperpop", rarity: "purple", color: "#00f0ff", category: "Digital & Glitch", vibe: "Maximalist Pop", origin: "PC Music / UK", era: "2018–Present", energy: "⚡ Extreme", artists: ["100 gecs", "SOPHIE", "Charli xcx", "Dorian Electra", "glaive", "ericdoa", "A. G. Cook", "Slayyyter", "Dylan Brady", "Danny L Harle"], desc: "Maximalist pop pushed into abrasive synthetic sound design, pitch-shifted vocals, and metallic bass drops." },
@@ -908,7 +908,7 @@
       { name: "Darksynth", rarity: "purple", color: "#ef4444", category: "Rock & Guitar", vibe: "Horror Cyberpunk", origin: "France / US", era: "2015–Present", energy: "🩸 Horror", artists: ["Carpenter Brut", "Perturbator", "Dance With the Dead", "GosT", "Mega Drive", "Dan Terminus", "Lorn", "Master Boot Record", "Vector Seven", "Gunship"], desc: "Heavy electronic rock incorporating horror-movie synths and dystopian basslines." },
 
       // 6. Global Waves (76-90)
-      { name: "Modern P-Pop", rarity: "gold", color: "#ff007f", category: "Global Waves", vibe: "Pinoy Pop Wave", origin: "Philippines", era: "2020–Present", energy: "✨ Euphoric", artists: ["SB19", "BINI", "ALAMAT", "G22", "KAIA", "BGYO", "VXON", "HORI7ON", "FELIP", "Josh Cullen"], desc: "Filipino pop blending Western/K-pop production styles with Pinoy vocal harmonies and vibrant youth choreography." },
+      { name: "Modern P-Pop", rarity: "gold", color: "#ff007f", category: "Global Waves", vibe: "Pinoy Pop Wave", origin: "Philippines", era: "2020–Present", energy: "✨ Euphoric", artists: ["SB19", "BINI", "ALAMAT", "G22", "KAIA", "BGYO", "VXON", "HORI7ON", "FELIP", "Josh Cullen"], desc: "Filipino pop blending Western/K-pop production styles with Pinoy vocal harmonies and vibrant choreography." },
       { name: "Amapiano", rarity: "red", color: "#ffcc00", category: "Global Waves", vibe: "Log Drum Groove", origin: "Johannesburg, SA", era: "2019–Present", energy: "🪵 Log Drum", artists: ["Uncle Waffles", "Kabza De Small", "DJ Maphorisa", "Focalistic", "Tyler ICU", "Musa Keys", "Young Stunna", "DBN Gogo", "Major League DJz", "Daliwonga"], desc: "South African house subgenre with deep basslines and rattling log drum percussion." },
       { name: "Afropiano", rarity: "red", color: "#f59e0b", category: "Global Waves", vibe: "Afrobeats Log Drums", origin: "Lagos, Nigeria", era: "2021–Present", energy: "🇳🇬 Vibrant", artists: ["Asake", "Burna Boy", "Rema", "Davido", "Fireboy DML", "Kizz Daniel", "Seyi Vibez", "BNXN", "Victony", "Shallipopi"], desc: "West African Afrobeats vocal melodies riding South African Amapiano log drums." },
       { name: "Corridos Tumbados", rarity: "red", color: "#10b981", category: "Global Waves", vibe: "Brass Horn Trap", origin: "Mexico / US", era: "2020–Present", energy: "🇲🇽 Brass", artists: ["Peso Pluma", "Natanael Cano", "Junior H", "Fuerza Regida", "Gabito Ballesteros", "Xavi", "Oscar Maydon", "Chino Pacas", "Luis R Conriquez", "Tito Double P"], desc: "Traditional Mexican corrido instruments (requinto, brass) fused with trap 808s." },
@@ -957,7 +957,7 @@
 
     let audioCtx = null;
     let isRolling = false;
-    const CARD_WIDTH = 126;
+    const CARD_WIDTH = 150; // Updated to match 140px width + 10px total margins
     let currentX = 0;
     let animationFrameId = null;
 
@@ -1228,7 +1228,7 @@
 
       const viewportCenter = reelViewport.offsetWidth / 2;
       const startX = viewportCenter - (2 * CARD_WIDTH + CARD_WIDTH / 2);
-      const randomSubOffset = (Math.random() * 54) - 27;
+      const randomSubOffset = (Math.random() * 60) - 30;
       const targetX = viewportCenter - (WINNING_INDEX * CARD_WIDTH + CARD_WIDTH / 2 + randomSubOffset);
 
       let startTime = null;
